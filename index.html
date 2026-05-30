@@ -1,0 +1,1559 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cognisphere — Explore your mind. Train your spectrum.</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Cognisphere">
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxODAgMTgwJz48cmVjdCB3aWR0aD0nMTgwJyBoZWlnaHQ9JzE4MCcgcng9JzMyJyBmaWxsPScjMGUxMTE3Jy8+PHBvbHlnb24gcG9pbnRzPSc5MCwyMCAxNTgsMTUwIDIyLDE1MCcgZmlsbD0nbm9uZScgc3Ryb2tlPScjNGFmMGQ4JyBzdHJva2Utd2lkdGg9JzEwJyBzdHJva2UtbGluZWpvaW49J3JvdW5kJy8+PGNpcmNsZSBjeD0nOTAnIGN5PScxMDQnIHI9JzI0JyBmaWxsPSdub25lJyBzdHJva2U9JyNhNzhiZmEnIHN0cm9rZS13aWR0aD0nOCcvPjwvc3ZnPg==">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230e1117'/%3E%3Cpolygon points='32,6 58,54 6,54' fill='none' stroke='%234af0d8' stroke-width='3.5' stroke-linejoin='round'/%3E%3Ccircle cx='32' cy='37' r='9' fill='none' stroke='%23a78bfa' stroke-width='2.5'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+[data-theme="dark"]{--bg:#0e1117;--bg2:#141822;--bg3:#1a2030;--card:#1e2536;--card2:#242c3d;--border:rgba(100,130,200,0.15);--text:#e8edf8;--text2:#9aaac8;--text3:#6878a0;--shadow:0 8px 40px rgba(0,0,0,0.4);}
+[data-theme="light"]{--bg:#f0f4ff;--bg2:#e8edf8;--bg3:#dce3f5;--card:#ffffff;--card2:#f4f7ff;--border:rgba(80,100,180,0.15);--text:#1a2040;--text2:#4a5a80;--text3:#8090b0;--shadow:0 8px 40px rgba(80,100,180,0.12);}
+:root{--cyan:#4af0d8;--cyan2:#2dd4bf;--violet:#a78bfa;--violet2:#8b5cf6;--gold:#f0c060;--danger:#f87171;--success:#4ade80;--r:16px;--r2:24px;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;transition:background .3s,color .3s;}
+#bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.4;}
+.app{position:relative;z-index:1;min-height:100vh;}
+.page{display:none;min-height:100vh;animation:fadeIn .4s ease;}
+.page.active{display:flex;flex-direction:column;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+nav{display:flex;align-items:center;justify-content:space-between;padding:15px 26px;border-bottom:1px solid var(--border);backdrop-filter:blur(14px);background:rgba(14,17,23,.6);position:sticky;top:0;z-index:100;gap:10px;}
+[data-theme="light"] nav{background:rgba(240,244,255,.8);}
+.nav-left{display:flex;align-items:center;gap:9px;}
+.nav-logo-icon{width:30px;height:30px;cursor:pointer;transition:transform .2s;flex-shrink:0;}
+.nav-logo-icon:hover{transform:scale(1.08);}
+.nav-logo{font-family:'DM Serif Display',serif;font-size:1.28rem;color:var(--cyan);letter-spacing:.02em;cursor:pointer;}
+.nav-logo span{color:var(--violet);}
+.nav-center{display:flex;gap:3px;}
+.nav-btn{background:none;border:none;color:var(--text2);font-family:'Sora',sans-serif;font-size:.8rem;font-weight:500;padding:7px 12px;border-radius:40px;cursor:pointer;transition:all .2s;letter-spacing:.03em;}
+.nav-btn:hover,.nav-btn.active{color:var(--text);background:var(--card2);}
+.nav-right{display:flex;align-items:center;gap:7px;}
+.lang-toggle{display:flex;background:var(--card2);border-radius:40px;border:1px solid var(--border);overflow:hidden;}
+.lang-btn{background:none;border:none;color:var(--text3);font-family:'Sora',sans-serif;font-size:.7rem;font-weight:600;padding:5px 10px;cursor:pointer;transition:all .2s;letter-spacing:.05em;}
+.lang-btn.active{background:var(--violet2);color:#fff;}
+.theme-btn{width:32px;height:32px;border-radius:50%;background:var(--card2);border:1px solid var(--border);color:var(--text2);font-size:.95rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.theme-btn:hover{border-color:var(--cyan);color:var(--cyan);}
+.btn{display:inline-flex;align-items:center;gap:7px;border:none;border-radius:50px;cursor:pointer;font-family:'Sora',sans-serif;font-weight:600;letter-spacing:.04em;transition:all .25s;text-decoration:none;}
+.btn-primary{background:linear-gradient(135deg,var(--cyan2),var(--cyan));color:#0e1117;padding:12px 28px;font-size:.86rem;box-shadow:0 4px 22px rgba(74,240,216,.3);}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(74,240,216,.4);}
+.btn-secondary{background:var(--card2);color:var(--text);padding:10px 20px;font-size:.83rem;border:1px solid var(--border);}
+.btn-secondary:hover{background:var(--bg3);}
+.btn-ghost{background:transparent;color:var(--text2);padding:9px 17px;font-size:.8rem;border:1px solid var(--border);}
+.btn-ghost:hover{color:var(--text);border-color:var(--cyan);}
+.btn-danger{background:rgba(248,113,113,.1);color:var(--danger);padding:9px 17px;font-size:.8rem;border:1px solid rgba(248,113,113,.25);}
+.btn-danger:hover{background:rgba(248,113,113,.2);}
+.btn-violet{background:linear-gradient(135deg,var(--violet2),var(--violet));color:#fff;padding:10px 20px;font-size:.83rem;box-shadow:0 4px 18px rgba(139,92,246,.3);}
+.btn-violet:hover{transform:translateY(-2px);}
+.btn-sm{padding:7px 15px!important;font-size:.75rem!important;}
+#page-home{justify-content:flex-start;align-items:center;padding:36px 24px 0;}
+.home-hero{max-width:700px;text-align:center;width:100%;}
+.home-badge{display:inline-block;background:rgba(74,240,216,.1);border:1px solid rgba(74,240,216,.3);color:var(--cyan);padding:5px 15px;border-radius:40px;font-size:.71rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin-bottom:22px;}
+.home-title{font-family:'DM Serif Display',serif;font-size:clamp(2.5rem,7vw,4.5rem);line-height:1.05;margin-bottom:9px;background:linear-gradient(135deg,var(--text) 40%,var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.home-tagline{font-family:'DM Serif Display',serif;font-style:italic;font-size:1.02rem;color:var(--violet);margin-bottom:18px;}
+.home-intro{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:20px 26px;margin:0 auto 28px;max-width:600px;text-align:left;}
+.home-intro p{color:var(--text2);font-size:.84rem;line-height:1.75;margin-bottom:9px;}
+.home-intro p:last-child{margin-bottom:0;}
+.home-intro strong{color:var(--text);}
+.home-cta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:28px;}
+.home-aptitudes{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:620px;margin:0 auto 36px;}
+.apt-chip{background:var(--card);border:1px solid var(--border);border-radius:40px;padding:4px 12px;font-size:.7rem;color:var(--text2);font-weight:500;transition:all .2s;}
+.apt-chip:hover{color:var(--cyan);border-color:rgba(74,240,216,.4);}
+.apt-chip.soon{opacity:.35;}
+#page-onboarding{align-items:center;justify-content:center;padding:40px 24px;}
+.onboarding-inner{max-width:520px;width:100%;}
+.onboarding-step{display:none;animation:fadeIn .4s ease;}
+.onboarding-step.active{display:block;}
+.step-num{font-size:.71rem;font-weight:600;letter-spacing:.1em;color:var(--text3);text-transform:uppercase;margin-bottom:9px;}
+.step-title{font-family:'DM Serif Display',serif;font-size:1.8rem;margin-bottom:13px;line-height:1.2;}
+.step-body{color:var(--text2);font-size:.88rem;line-height:1.75;margin-bottom:20px;}
+.step-body strong{color:var(--text);}
+.disclaimer-box{background:rgba(167,139,250,.07);border:1px solid rgba(167,139,250,.22);border-radius:var(--r);padding:16px;margin-bottom:18px;font-size:.82rem;color:var(--text2);line-height:1.65;}
+.disclaimer-box .label{color:var(--violet);font-weight:600;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;}
+.step-nav{display:flex;gap:10px;justify-content:space-between;align-items:center;}
+.progress-bar-wrap{width:100%;height:3px;background:var(--card2);border-radius:4px;margin-bottom:22px;}
+.progress-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--violet2),var(--cyan));transition:width .4s ease;}
+#page-tutorial{padding:28px 36px 52px;}
+.tut-title{font-family:'DM Serif Display',serif;font-size:1.9rem;margin-bottom:5px;}
+.tut-sub{color:var(--text2);font-size:.86rem;margin-bottom:28px;}
+.tut-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;}
+.tut-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:20px;}
+.tut-card-icon{font-size:1.7rem;margin-bottom:9px;display:block;}
+.tut-apt{font-size:.67rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);margin-bottom:4px;}
+.tut-game-name{font-family:'DM Serif Display',serif;font-size:1.12rem;margin-bottom:7px;}
+.tut-desc{color:var(--text2);font-size:.8rem;line-height:1.65;margin-bottom:10px;}
+.tut-tip{background:rgba(74,240,216,.05);border:1px solid rgba(74,240,216,.14);border-radius:9px;padding:9px 12px;font-size:.76rem;color:var(--text2);line-height:1.6;}
+.tut-tip strong{color:var(--cyan);}
+.apt-glossary{display:flex;flex-direction:column;gap:12px;margin-top:20px;}
+.apt-gloss-item{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px 18px;}
+.apt-gloss-name{font-weight:600;font-size:.86rem;margin-bottom:3px;}
+.apt-gloss-desc{font-size:.78rem;color:var(--text2);line-height:1.6;}
+#page-hub{padding:0;}
+.hub-header{padding:28px 34px 14px;}
+.hub-title{font-family:'DM Serif Display',serif;font-size:1.85rem;margin-bottom:4px;}
+.hub-sub{color:var(--text2);font-size:.84rem;}
+.games-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:13px;padding:14px 34px 38px;}
+.game-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:20px;cursor:pointer;transition:all .3s;position:relative;overflow:hidden;}
+.game-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent 60%,rgba(74,240,216,.04));opacity:0;transition:opacity .3s;}
+.game-card:hover::before{opacity:1;}
+.game-card:hover{border-color:rgba(74,240,216,.3);transform:translateY(-3px);box-shadow:0 12px 38px rgba(0,0,0,.25),0 0 18px rgba(74,240,216,.15);}
+.game-icon{font-size:1.9rem;margin-bottom:11px;display:block;}
+.game-aptitude{font-size:.67rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);margin-bottom:4px;}
+.game-name{font-family:'DM Serif Display',serif;font-size:1.2rem;margin-bottom:6px;}
+.game-desc{color:var(--text2);font-size:.79rem;line-height:1.6;margin-bottom:13px;}
+.game-meta{display:flex;gap:9px;align-items:center;}
+.game-duration{font-size:.69rem;color:var(--text3);}
+.game-level-dots{display:flex;gap:3px;}
+.dot{width:5px;height:5px;border-radius:50%;background:var(--text3);}
+.dot.active{background:var(--cyan);}
+.best-score{margin-left:auto;font-size:.69rem;color:var(--gold);font-weight:600;}
+#page-game{align-items:center;justify-content:flex-start;padding:18px 20px 38px;}
+.game-header{width:100%;max-width:680px;display:flex;align-items:center;gap:12px;margin-bottom:22px;}
+.game-back{background:var(--card);border:1px solid var(--border);color:var(--text2);padding:7px 12px;border-radius:40px;cursor:pointer;font-size:.78rem;font-family:'Sora',sans-serif;display:flex;align-items:center;gap:5px;transition:all .2s;}
+.game-back:hover{color:var(--text);border-color:rgba(100,130,200,.3);}
+.game-info{flex:1;}
+.game-screen-title{font-family:'DM Serif Display',serif;font-size:1.3rem;}
+.game-screen-apt{font-size:.69rem;color:var(--cyan);font-weight:600;letter-spacing:.08em;text-transform:uppercase;}
+.game-timer{font-size:1.35rem;font-weight:700;color:var(--cyan);font-variant-numeric:tabular-nums;min-width:44px;text-align:right;}
+.game-timer.urgent{color:var(--danger);animation:pulse .5s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.game-area{width:100%;max-width:680px;flex:1;}
+.pt-container{text-align:center;}
+.pt-examples{display:flex;gap:18px;justify-content:center;margin-bottom:24px;flex-wrap:wrap;}
+.pt-triangle{position:relative;width:125px;height:115px;}
+.pt-triangle svg{width:100%;height:100%;}
+.pt-nums{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;}
+.pt-sides{display:flex;gap:9px;font-size:1.15rem;font-weight:700;color:var(--text);font-family:'DM Serif Display',serif;}
+.pt-bottom{font-size:.95rem;font-weight:600;color:var(--cyan);}
+.pt-unknown{color:var(--violet);}
+.pt-question{margin-bottom:16px;font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--text2);}
+.pt-rule-hint{font-size:.73rem;color:var(--text3);margin-bottom:14px;font-style:italic;}
+.pt-input-row{display:flex;gap:9px;justify-content:center;align-items:center;flex-wrap:wrap;}
+.game-input{background:var(--card2);border:2px solid var(--border);border-radius:11px;color:var(--text);font-family:'DM Serif Display',serif;font-size:1.6rem;padding:10px 16px;width:125px;text-align:center;outline:none;transition:border-color .2s;}
+.game-input:focus{border-color:var(--cyan);}
+.ss-target{text-align:center;margin-bottom:20px;}
+.ss-target-label{font-size:.71rem;color:var(--text3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;}
+.ss-target-symbol{font-size:3rem;display:block;line-height:1;}
+.ss-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;max-width:440px;margin:0 auto;}
+.ss-cell{aspect-ratio:1;background:var(--card2);border:1px solid var(--border);border-radius:12px;font-size:1.5rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;user-select:none;}
+.ss-cell:hover{background:var(--bg3);}
+.ss-cell.correct{background:rgba(74,222,128,.15);border-color:var(--success);}
+.ss-cell.wrong{background:rgba(248,113,113,.15);border-color:var(--danger);}
+.ms-container{text-align:center;}
+.ms-phase{font-size:.71rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;}
+.ms-phase.memorize{color:var(--violet);}
+.ms-phase.recall{color:var(--cyan);}
+.ms-sequence{display:flex;gap:8px;justify-content:center;margin-bottom:24px;flex-wrap:wrap;}
+.ms-item{width:50px;height:50px;border-radius:11px;background:var(--card2);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.15rem;font-weight:700;font-family:'DM Serif Display',serif;color:var(--text);transition:all .3s;}
+.ms-item.highlight{background:rgba(167,139,250,.2);border-color:var(--violet);color:var(--violet);transform:scale(1.1);}
+.ms-keypad{display:grid;grid-template-columns:repeat(5,46px);gap:6px;}
+.ms-key{width:46px;height:46px;background:var(--card2);border:1px solid var(--border);border-radius:9px;color:var(--text);font-size:.95rem;font-family:'DM Serif Display',serif;font-weight:700;cursor:pointer;transition:all .15s;}
+.ms-key:hover{background:var(--bg3);border-color:var(--cyan);color:var(--cyan);}
+.ms-answer-display{display:flex;gap:6px;justify-content:center;min-height:46px;flex-wrap:wrap;margin-bottom:14px;}
+.ms-ans-item{width:46px;height:46px;border-radius:9px;background:rgba(74,240,216,.1);border:2px solid var(--cyan);display:flex;align-items:center;justify-content:center;font-size:.95rem;font-weight:700;font-family:'DM Serif Display',serif;color:var(--cyan);}
+.rs-container{text-align:center;}
+.rs-rule-display{background:var(--card2);border:1px solid var(--border);border-radius:var(--r);padding:13px 20px;margin-bottom:22px;display:inline-block;}
+.rs-rule-label{font-size:.68rem;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;}
+.rs-rule-text{font-family:'DM Serif Display',serif;font-size:1rem;color:var(--violet);}
+.rs-changed .rs-rule-text{color:var(--gold);}
+.rs-shapes{display:flex;gap:9px;justify-content:center;margin-bottom:22px;flex-wrap:wrap;}
+.rs-shape{width:62px;height:62px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.7rem;cursor:pointer;border:2px solid var(--border);background:var(--card2);transition:all .2s;}
+.rs-shape:hover{border-color:var(--cyan);transform:scale(1.05);}
+.rr-scenario{background:var(--card2);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:16px;font-size:.86rem;color:var(--text2);line-height:1.65;}
+.rr-scenario strong{color:var(--text);}
+.rr-instructions{font-size:.76rem;color:var(--text3);margin-bottom:13px;text-align:center;}
+.rr-option{background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:12px 16px;cursor:grab;display:flex;align-items:center;gap:10px;transition:all .2s;user-select:none;margin-bottom:8px;}
+.rr-option:hover{border-color:rgba(100,130,200,.35);}
+.rr-option.dragging{opacity:.45;border-color:var(--cyan);}
+.rr-option.drag-over{border-color:var(--violet);background:rgba(167,139,250,.07);}
+.rr-rank-num{width:24px;height:24px;border-radius:50%;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.71rem;font-weight:700;color:var(--text3);flex-shrink:0;}
+.rr-option-text{font-size:.81rem;color:var(--text);flex:1;}
+.rr-drag-handle{font-size:.9rem;color:var(--text3);}
+.ii-clues{background:var(--card2);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:18px;}
+.ii-clues-title{font-size:.68rem;color:var(--cyan);font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:11px;}
+.ii-clue{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;font-size:.84rem;color:var(--text2);}
+.ii-clue::before{content:'◈';color:var(--cyan);flex-shrink:0;margin-top:1px;}
+.ii-question{font-family:'DM Serif Display',serif;font-size:.98rem;color:var(--text2);margin-bottom:16px;}
+.ii-option{background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:12px 15px;cursor:pointer;font-size:.82rem;color:var(--text);transition:all .2s;text-align:left;display:flex;align-items:center;gap:10px;width:100%;margin-bottom:8px;}
+.ii-option-letter{width:23px;height:23px;border-radius:50%;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:700;color:var(--text3);flex-shrink:0;}
+.ii-option:hover{border-color:var(--cyan);}
+.ii-option.selected{border-color:var(--violet);background:rgba(167,139,250,.08);}
+.ii-option.selected .ii-option-letter{background:var(--violet2);color:#fff;border-color:var(--violet);}
+.confidence-slider{-webkit-appearance:none;width:100%;height:4px;border-radius:4px;background:var(--card2);outline:none;margin:7px 0;}
+.confidence-slider::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--violet);cursor:pointer;}
+.confidence-value{font-size:.81rem;font-weight:600;color:var(--violet);text-align:right;}
+.md-conclusion{background:rgba(248,113,113,.07);border:1px solid rgba(248,113,113,.22);border-radius:var(--r);padding:14px 16px;margin-bottom:16px;}
+.md-conclusion-label{font-size:.67rem;color:var(--danger);font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px;}
+.md-conclusion-text{font-size:.86rem;color:var(--text);font-style:italic;}
+.md-given{background:var(--card2);border:1px solid var(--border);border-radius:var(--r);padding:13px 16px;margin-bottom:16px;font-size:.82rem;color:var(--text2);}
+.md-given-label{font-size:.67rem;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
+.an-pair{display:flex;align-items:center;gap:11px;justify-content:center;margin-bottom:20px;flex-wrap:wrap;}
+.an-word{background:var(--card2);border:1px solid var(--border);border-radius:11px;padding:11px 18px;font-family:'DM Serif Display',serif;font-size:1.15rem;color:var(--text);}
+.an-arrow{font-size:1.3rem;color:var(--text3);}
+.an-unknown{border-color:var(--violet);color:var(--violet);}
+.an-question{font-family:'DM Serif Display',serif;font-size:.96rem;color:var(--text2);margin-bottom:16px;text-align:center;}
+.an-options{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+.an-opt{background:var(--card2);border:2px solid var(--border);border-radius:12px;padding:12px;cursor:pointer;font-family:'DM Serif Display',serif;font-size:.98rem;color:var(--text);transition:all .2s;text-align:center;}
+.an-opt:hover{border-color:var(--cyan);}
+.sq-sequence{display:flex;gap:9px;justify-content:center;margin-bottom:22px;flex-wrap:wrap;}
+.sq-item{width:54px;height:54px;border-radius:11px;background:var(--card2);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:1.25rem;font-weight:700;color:var(--text);}
+.sq-item.unknown{border-color:var(--violet);color:var(--violet);background:rgba(167,139,250,.08);}
+.sq-options{display:flex;gap:9px;justify-content:center;flex-wrap:wrap;margin-bottom:20px;}
+.sq-opt{background:var(--card2);border:2px solid var(--border);border-radius:11px;padding:11px 18px;cursor:pointer;font-family:'DM Serif Display',serif;font-size:1.15rem;font-weight:700;color:var(--text);transition:all .2s;min-width:68px;text-align:center;}
+.sq-opt:hover{border-color:var(--cyan);}
+.feedback-overlay{position:fixed;inset:0;background:rgba(14,17,23,.82);z-index:200;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px);animation:fadeIn .3s ease;}
+.feedback-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:34px;max-width:440px;width:90%;text-align:center;}
+.feedback-icon{font-size:2.6rem;margin-bottom:13px;display:block;}
+.feedback-result{font-family:'DM Serif Display',serif;font-size:1.45rem;margin-bottom:6px;}
+.feedback-score{font-size:2.7rem;font-weight:700;color:var(--cyan);margin-bottom:5px;font-family:'DM Serif Display',serif;}
+.feedback-label{font-size:.74rem;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:18px;}
+.feedback-explanation{background:var(--card2);border-radius:var(--r);padding:13px;font-size:.82rem;color:var(--text2);line-height:1.65;margin-bottom:22px;text-align:left;}
+.feedback-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
+#page-dashboard{padding:26px 34px 52px;}
+.dash-header{margin-bottom:26px;}
+.dash-title{font-family:'DM Serif Display',serif;font-size:1.85rem;margin-bottom:4px;}
+.dash-sub{color:var(--text2);font-size:.84rem;}
+.dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px;}
+.dash-stat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:20px;}
+.stat-label{font-size:.68rem;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
+.stat-value{font-family:'DM Serif Display',serif;font-size:2.5rem;line-height:1;margin-bottom:3px;}
+.stat-value.cyan{color:var(--cyan);}.stat-value.violet{color:var(--violet);}.stat-value.gold{color:var(--gold);}
+.stat-sub{font-size:.74rem;color:var(--text3);}
+.chart-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:22px;margin-bottom:16px;}
+.chart-title{font-family:'DM Serif Display',serif;font-size:1.02rem;margin-bottom:16px;}
+.radar-wrap{max-width:360px;margin:0 auto;}
+.aptitude-bars{display:flex;flex-direction:column;gap:11px;}
+.apt-bar-row{display:flex;align-items:center;gap:11px;}
+.apt-bar-label{font-size:.74rem;color:var(--text2);width:165px;flex-shrink:0;}
+.apt-bar-track{flex:1;height:6px;background:var(--card2);border-radius:4px;overflow:hidden;}
+.apt-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--violet2),var(--cyan));transition:width .8s ease;}
+.apt-bar-score{font-size:.74rem;font-weight:600;color:var(--text);width:36px;text-align:right;}
+.reliability{display:inline-flex;align-items:center;gap:4px;font-size:.64rem;font-weight:600;padding:2px 8px;border-radius:40px;}
+.rel-low{background:rgba(248,113,113,.1);color:var(--danger);border:1px solid rgba(248,113,113,.2);}
+.rel-med{background:rgba(240,192,96,.1);color:var(--gold);border:1px solid rgba(240,192,96,.2);}
+.rel-good{background:rgba(74,240,216,.1);color:var(--cyan);border:1px solid rgba(74,240,216,.2);}
+.rel-high{background:rgba(74,222,128,.1);color:var(--success);border:1px solid rgba(74,222,128,.2);}
+.global-index-card{background:linear-gradient(135deg,rgba(74,240,216,.05),rgba(167,139,250,.05));border:1px solid rgba(74,240,216,.18);border-radius:var(--r2);padding:30px;text-align:center;margin-bottom:18px;position:relative;overflow:hidden;}
+.global-index-card::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse,rgba(74,240,216,.03) 0%,transparent 70%);pointer-events:none;}
+.gi-label{font-size:.68rem;color:var(--text3);text-transform:uppercase;letter-spacing:.15em;margin-bottom:12px;}
+.gi-value{font-family:'DM Serif Display',serif;font-size:4.2rem;line-height:1;background:linear-gradient(135deg,var(--cyan),var(--violet));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:5px;}
+.gi-sub{font-size:.76rem;color:var(--text3);margin-bottom:8px;}
+.history-list{display:flex;flex-direction:column;gap:8px;}
+.history-item{background:var(--card2);border:1px solid var(--border);border-radius:var(--r);padding:10px 14px;display:flex;align-items:center;gap:12px;}
+.history-game{flex:1;font-size:.81rem;font-weight:500;}
+.history-score{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--cyan);}
+.history-time{font-size:.68rem;color:var(--text3);}
+.empty-state{text-align:center;padding:46px 20px;color:var(--text3);}
+.empty-icon{font-size:2.6rem;margin-bottom:13px;display:block;}
+.empty-text{font-size:.86rem;}
+#page-about{padding:34px 34px 52px;max-width:660px;margin:0 auto;}
+.about-section{margin-bottom:30px;}
+.about-h{font-family:'DM Serif Display',serif;font-size:1.3rem;margin-bottom:11px;color:var(--cyan);}
+.about-p{color:var(--text2);font-size:.84rem;line-height:1.75;margin-bottom:9px;}
+.toast{position:fixed;bottom:22px;right:22px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:11px 16px;font-size:.81rem;color:var(--text);z-index:999;animation:slideUp .3s ease,fadeOut .4s ease 2.6s forwards;box-shadow:var(--shadow);}
+@keyframes slideUp{from{transform:translateY(16px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes fadeOut{from{opacity:1}to{opacity:0;pointer-events:none}}
+footer{border-top:1px solid var(--border);padding:18px 34px;display:flex;justify-content:space-between;align-items:center;font-size:.74rem;color:var(--text3);flex-wrap:wrap;gap:9px;}
+footer a{color:var(--text3);text-decoration:none;}
+footer a:hover{color:var(--cyan);}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--card2);border-radius:4px;}
+.mt-8{margin-top:8px;}.mt-16{margin-top:16px;}.mt-24{margin-top:24px;}
+.flex-center{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;}
+.section-title{font-family:'DM Serif Display',serif;font-size:1.2rem;margin-bottom:13px;}
+.hidden{display:none!important;}
+@media(max-width:768px){
+  nav{padding:12px 15px;}
+  .nav-center .nav-btn{padding:6px 9px;font-size:.74rem;}
+  .hub-header{padding:20px 16px 10px;}
+  .games-grid{padding:9px 16px 26px;grid-template-columns:1fr;}
+  #page-dashboard{padding:18px 16px 40px;}
+  .dash-grid{grid-template-columns:1fr;}
+  .apt-bar-label{width:115px;}
+  footer{padding:16px;flex-direction:column;text-align:center;}
+  #page-about{padding:22px 16px;}
+  #page-tutorial{padding:22px 16px 40px;}
+  .ss-grid{grid-template-columns:repeat(4,1fr);}
+  .an-options{grid-template-columns:1fr;}
+}
+
+/* ── HAMBURGER NAV MOBILE ── */
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px;}
+.hamburger span{width:22px;height:2px;background:var(--text2);border-radius:2px;transition:all .3s;}
+.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(14,17,23,.97);z-index:200;flex-direction:column;align-items:center;justify-content:center;gap:20px;backdrop-filter:blur(14px);}
+.mobile-menu.open{display:flex;}
+.mobile-menu .nav-btn{font-size:1.3rem;padding:14px 28px;color:var(--text);}
+.mobile-menu .nav-btn:hover{background:var(--card);color:var(--cyan);}
+.mobile-close{position:absolute;top:22px;right:22px;background:none;border:none;color:var(--text2);font-size:1.5rem;cursor:pointer;padding:8px;}
+@media(max-width:600px){
+  .hamburger{display:flex;}
+  .nav-center{display:none;}
+  nav{padding:12px 16px;}
+  .nav-logo{font-size:1.1rem;}
+  .nav-logo-icon{width:26px;height:26px;}
+  body{font-size:16px;}
+  .home-title{font-size:3.2rem;}
+  .home-intro p{font-size:.95rem;line-height:1.85;}
+  .home-cta .btn{font-size:.95rem;padding:14px 26px;}
+  .apt-chip{font-size:.78rem;padding:6px 14px;}
+  .game-card{padding:22px 18px;}
+  .game-name{font-size:1.3rem;}
+  .game-desc{font-size:.88rem;}
+  .gc{padding:22px 16px;}
+  .gc-opt{font-size:.9rem;padding:13px 11px;}
+  .gc-prompt{font-size:.95rem;}
+  .step-title{font-size:2rem;}
+  .step-body{font-size:.95rem;}
+}
+</style>
+</head>
+<body>
+<canvas id="bg-canvas"></canvas>
+<div class="app">
+<nav id="main-nav">
+  <div class="nav-left">
+    <svg class="nav-logo-icon" onclick="showPage('home')" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="64" height="64" rx="14" fill="#0e1117"/>
+      <polygon points="32,6 58,54 6,54" fill="none" stroke="#4af0d8" stroke-width="3.5" stroke-linejoin="round"/>
+      <circle cx="32" cy="37" r="9" fill="none" stroke="#a78bfa" stroke-width="2.8"/>
+      <line x1="32" y1="6" x2="32" y2="54" stroke="#4af0d8" stroke-width="1.5" opacity=".35" stroke-dasharray="4,3"/>
+    </svg>
+    <div class="nav-logo" onclick="showPage('home')">Cogni<span>sphere</span></div>
+  </div>
+  <div class="nav-center">
+    <button class="nav-btn" onclick="showPage('hub')" id="nb-hub" data-page="hub">Games</button>
+    <button class="nav-btn" onclick="showPage('dashboard')" id="nb-dashboard" data-page="dashboard">Dashboard</button>
+    <button class="nav-btn" onclick="showPage('tutorial')" id="nb-tutorial" data-page="tutorial">Guide</button>
+    <button class="nav-btn" onclick="showPage('about')" id="nb-about" data-page="about">About</button>
+  </div>
+  <button class="hamburger" id="ham-btn" onclick="toggleMobileMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-right">
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" id="btn-fr" onclick="setLang('fr')">FR</button>
+    </div>
+    <button class="theme-btn" id="theme-btn" onclick="toggleTheme()">☽</button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mobile-close" onclick="toggleMobileMenu()">✕</button>
+  <button class="nav-btn" id="mm-hub" onclick="showPage('hub');toggleMobileMenu()">Jeux</button>
+  <button class="nav-btn" id="mm-dashboard" onclick="showPage('dashboard');toggleMobileMenu()">Tableau</button>
+  <button class="nav-btn" id="mm-tutorial" onclick="showPage('tutorial');toggleMobileMenu()">Guide</button>
+  <button class="nav-btn" id="mm-about" onclick="showPage('about');toggleMobileMenu()">À propos</button>
+  <div class="lang-toggle" style="margin-top:10px;">
+    <button class="lang-btn" id="mm-en" data-lang="en" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" id="mm-fr" data-lang="fr" onclick="setLang('fr')">FR</button>
+  </div>
+</div>
+
+
+<div id="page-home" class="page active">
+  <div class="home-hero" style="padding-top:18px">
+    <div class="home-badge" id="i-home-badge">✦ Cognitive Profile Explorer · V2 Beta</div>
+    <h1 class="home-title">Cogni<br>sphere</h1>
+    <p class="home-tagline" id="i-home-tagline">Explore your mind. Train your spectrum.</p>
+    <div class="home-intro">
+      <p id="i-intro1"><strong>Cognisphere</strong> is a collection of elegant cognitive mini-games that estimate your mental profile — probabilistically, playfully, progressively.</p>
+      <p id="i-intro2">Each session generates a snapshot across <strong>9 active cognitive dimensions</strong>: logical reasoning, cognitive speed, working memory, pattern intuition, reality simulation, epistemic thinking, verbal analogies, sequence logic, and flexible categorization.</p>
+      <p id="i-intro3">This is <strong>not a clinical IQ test</strong>. Results are probabilistic tendencies — a living map that sharpens the more you play.</p>
+    </div>
+    <div class="home-cta">
+      <button class="btn btn-primary" onclick="showPage('onboarding')" id="i-cta1">⟡ Begin Assessment</button>
+      <button class="btn btn-secondary" onclick="showPage('hub')" id="i-cta2">Browse Games</button>
+      <button class="btn btn-violet btn-sm" onclick="showPage('tutorial')" id="i-cta3">📖 Guide</button>
+    </div>
+    <div class="home-aptitudes">
+      <span class="apt-chip" id="i-apt-reasoning">Logical Reasoning</span>
+      <span class="apt-chip" id="i-apt-speed">Cognitive Speed</span>
+      <span class="apt-chip" id="i-apt-memory">Working Memory</span>
+      <span class="apt-chip" id="i-apt-pattern">Pattern Intuition</span>
+      <span class="apt-chip" id="i-apt-reality">Reality Simulation</span>
+      <span class="apt-chip" id="i-apt-epistemic">Epistemic Thinking</span>
+      <span class="apt-chip" id="i-apt-analogy">Verbal Analogies</span>
+      <span class="apt-chip" id="i-apt-sequence">Sequence Logic</span>
+      <span class="apt-chip" id="i-apt-flex">Flexible Categorization</span>
+      <span class="apt-chip soon">Spatial Thinking ↗</span>
+      <span class="apt-chip soon">Creative Thinking ↗</span>
+      <span class="apt-chip soon">Metacognition ↗</span>
+      <span class="apt-chip soon">Emotional Intelligence ↗</span>
+      <span class="apt-chip soon">Empathy ↗</span>
+      <span class="apt-chip soon">Attention &amp; Focus ↗</span>
+    </div>
+  </div>
+  <footer><span>© AxelFisch 2026</span><a href="mailto:a.fisch@icloud.com">a.fisch@icloud.com</a><span id="i-footer">V2 Beta — Estimation, not diagnosis.</span></footer>
+</div>
+
+<div id="page-onboarding" class="page">
+  <div class="onboarding-inner">
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="onboard-progress" style="width:33%"></div></div>
+    <div class="onboarding-step active" id="step-1">
+      <div class="step-num" id="i-s1n">Step 1 of 3</div>
+      <h2 class="step-title" id="i-s1t">What is Cognisphere?</h2>
+      <p class="step-body" id="i-s1b">A collection of short, elegant cognitive games estimating your mental profile across <strong>9 active domains</strong>: reasoning, speed, memory, patterns, reality, epistemic thinking, analogies, sequences, and flexible categorization.</p>
+      <div class="step-nav"><button class="btn btn-ghost" onclick="showPage('home')" id="i-back1">← Back</button><button class="btn btn-primary" onclick="nextOnboardStep(2)" id="i-cont1">Continue →</button></div>
+    </div>
+    <div class="onboarding-step" id="step-2">
+      <div class="step-num" id="i-s2n">Step 2 of 3</div>
+      <h2 class="step-title" id="i-s2t">Important to know</h2>
+      <div class="disclaimer-box"><div class="label" id="i-disc-label">⚠ Not a clinical test</div><span id="i-disc-body">Cognisphere does not provide an official IQ score. All results are <strong>probabilistic estimates</strong> — tendencies, not fixed facts.</span></div>
+      <div class="step-nav"><button class="btn btn-ghost" onclick="nextOnboardStep(1)" id="i-back2">← Back</button><button class="btn btn-primary" onclick="nextOnboardStep(3)" id="i-cont2">Continue →</button></div>
+    </div>
+    <div class="onboarding-step" id="step-3">
+      <div class="step-num" id="i-s3n">Step 3 of 3</div>
+      <h2 class="step-title" id="i-s3t">How it works</h2>
+      <p class="step-body" id="i-s3b">Each mini-game takes <strong>30–90 seconds</strong>. No shame in any result — this is exploration. Your data stays <strong>100% local</strong> on your device.</p>
+      <div class="step-nav"><button class="btn btn-ghost" onclick="nextOnboardStep(2)" id="i-back3">← Back</button><button class="btn btn-primary" onclick="showPage('hub')" id="i-start">Start Exploring →</button></div>
+    </div>
+  </div>
+</div>
+
+<div id="page-tutorial" class="page">
+  <h2 class="tut-title" id="i-tut-title">Game Guide</h2>
+  <p class="tut-sub" id="i-tut-sub">Brief explanations for each game and cognitive domain.</p>
+  <div class="tut-grid" id="tut-grid"></div>
+  <h3 class="section-title" style="margin-top:32px" id="i-apt-title">The 9 Active Cognitive Domains</h3>
+  <div class="apt-glossary" id="apt-glossary"></div>
+  <div class="flex-center mt-24"><button class="btn btn-primary" onclick="showPage('hub')" id="i-tut-play">Start Playing</button></div>
+  <footer><span>© AxelFisch 2026</span><a href="mailto:a.fisch@icloud.com">a.fisch@icloud.com</a></footer>
+</div>
+
+<div id="page-hub" class="page">
+  <div class="hub-header"><h2 class="hub-title" id="i-hub-title">Game Library</h2><p class="hub-sub" id="i-hub-sub">Select a game to train or assess a cognitive domain.</p></div>
+  <div class="games-grid" id="games-grid"></div>
+  <footer><span>© AxelFisch 2026</span><a href="mailto:a.fisch@icloud.com">a.fisch@icloud.com</a></footer>
+</div>
+
+<div id="page-game" class="page">
+  <div class="game-header">
+    <button class="game-back" onclick="showPage('hub')">← <span id="i-back-game">Back</span></button>
+    <div class="game-info"><div class="game-screen-apt" id="gs-aptitude">Aptitude</div><div class="game-screen-title" id="gs-title">Game</div></div>
+    <div class="game-timer" id="gs-timer">—</div>
+  </div>
+  <div class="game-area" id="game-area"></div>
+</div>
+
+<div id="page-dashboard" class="page">
+  <div class="dash-header"><h2 class="dash-title" id="i-dash-title">Your Cognitive Profile</h2><p class="dash-sub" id="i-dash-sub">Probabilistic estimates — updated as you play more games.</p></div>
+  <div id="dashboard-empty" class="empty-state hidden"><span class="empty-icon">◎</span><p class="empty-text" id="i-dash-empty">No data yet. Play a few games to see your profile emerge.</p><div class="mt-24 flex-center"><button class="btn btn-primary" onclick="showPage('hub')" id="i-dash-start">Start Playing</button></div></div>
+  <div id="dashboard-content">
+    <div class="global-index-card"><div class="gi-label" id="i-gi-label">Cognisphere Global Index</div><div class="gi-value" id="gi-value">—</div><div class="gi-sub" id="gi-sub">Play more games to build your profile</div><div id="gi-reliability"></div></div>
+    <div class="dash-grid">
+      <div class="dash-stat-card"><div class="stat-label" id="i-stat1">Games Completed</div><div class="stat-value cyan" id="stat-games">0</div><div class="stat-sub" id="i-stat1b">total sessions</div></div>
+      <div class="dash-stat-card"><div class="stat-label" id="i-stat2">Best Domain Score</div><div class="stat-value violet" id="stat-best">—</div><div class="stat-sub" id="stat-best-name">no data yet</div></div>
+    </div>
+    <div class="chart-card"><div class="chart-title" id="i-apt-scores">Aptitude Scores</div><div class="aptitude-bars" id="apt-bars"></div></div>
+    <div class="chart-card"><div class="chart-title" id="i-radar">Cognitive Radar</div><div class="radar-wrap"><canvas id="radar-chart" height="300"></canvas></div></div>
+    <div class="chart-card"><div class="chart-title" id="i-history">Recent Sessions</div><div class="history-list" id="history-list"></div></div>
+    <div class="flex-center mt-24">
+      <button class="btn btn-secondary" onclick="exportPDF()">⬇ PDF</button>
+      <button class="btn btn-secondary" onclick="exportJSON()">⬇ JSON</button>
+      <button class="btn btn-danger" onclick="resetData()">✕ <span id="i-reset">Reset Data</span></button>
+    </div>
+  </div>
+  <footer><span>© AxelFisch 2026</span><a href="mailto:a.fisch@icloud.com">a.fisch@icloud.com</a></footer>
+</div>
+
+<div id="page-about" class="page">
+  <div class="about-section"><h2 class="about-h" id="i-about-h1">About Cognisphere</h2><p class="about-p" id="i-about-p1">Cognisphere is a cognitive mini-game app estimating your mental profile across multiple dimensions. An exploratory, probabilistic tool — not a clinical instrument.</p><p class="about-p" id="i-about-p2">V2 Beta covers 9 active domains with 9 mini-games. Spatial thinking, creativity, metacognition, emotional intelligence, empathy, and attention are planned for V3.</p></div>
+  <div class="about-section"><h2 class="about-h" id="i-about-h2">Scientific Limits</h2><p class="about-p" id="i-about-p3">All scores are probabilistic estimates — not validated psychometric measurements. Does not replace professional cognitive assessment or medical diagnosis.</p></div>
+  <div class="about-section"><h2 class="about-h" id="i-about-h3">Privacy</h2><p class="about-p" id="i-about-p4">All data stored locally. Nothing transmitted to any server.</p></div>
+  <div class="about-section"><h2 class="about-h" id="i-about-h4">Contact</h2><p class="about-p">Created by <strong>Axel Fisch</strong> · <a href="mailto:a.fisch@icloud.com" style="color:var(--cyan)">a.fisch@icloud.com</a><br>© AxelFisch 2026 · V2 Beta</p></div>
+  <div class="flex-center mt-24"><button class="btn btn-primary" onclick="showPage('hub')">Start Playing</button><button class="btn btn-secondary" onclick="showPage('dashboard')">Dashboard</button></div>
+</div>
+</div>
+
+<div id="toast-anchor" style="position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:8px;align-items:flex-end;pointer-events:none;"></div>
+
+
+<script>
+// ═══════════════════════════════════════════════
+// COGNISPHERE V2 — JS COMPLET CORRIGÉ
+// Fixes: nav IDs, lang FR complète, jeux fonctionnels,
+//        onboarding bouton, hamburger mobile
+// ═══════════════════════════════════════════════
+
+// ── STORAGE ──────────────────────────────────────
+const SK='cognisphere_v2';
+let DATA=(()=>{try{return JSON.parse(localStorage.getItem(SK))||{sessions:[],scores:{}};}catch{return{sessions:[],scores:{}};}})();
+function save(){localStorage.setItem(SK,JSON.stringify(DATA));}
+
+// ── I18N ─────────────────────────────────────────
+let LANG=localStorage.getItem('cog_lang')||'en';
+
+const TX={
+  en:{
+    back:'← Back', next:'Next →', submit:'Submit →', playagain:'Play Again',
+    correct:'✦ Correct!', wrong:'✗ Answer was:', score:'Score',
+    hub_title:'Game Library', hub_sub:'Select a game to train or assess a cognitive domain.',
+    tut_title:'Tutorial', tut_sub:'How each game works and what it measures.',
+    apt_section:'The 9 Active Cognitive Domains',
+    dash_title:'Your Cognitive Profile', dash_sub:'Probabilistic estimates — play more to increase reliability.',
+    dash_empty:'No data yet. Play a few games first.',
+    dash_play:'Start Playing', gi_label:'Cognisphere Global Index',
+    gi_sub_more:'Play more games to build your profile',
+    stat1:'Sessions', stat2:'Best Domain', apt_scores:'Domain Scores',
+    radar_title:'Cognitive Radar', hist_title:'Recent Sessions',
+    reset:'Reset Data', reset_confirm:'Delete all data? Cannot be undone.',
+    about_h1:'About', about_h2:'Scientific Limits', about_h3:'Privacy', about_h4:'Contact',
+    about_p1:'Cognitive mini-games estimating your mental profile across 9 active dimensions. Exploratory, probabilistic — not a clinical instrument.',
+    about_p2:'V2 Beta covers 9 active domains. Spatial thinking, creativity, metacognition, emotional intelligence, empathy, and attention planned for V3.',
+    about_p3:'All scores are probabilistic estimates — not validated measurements.',
+    about_p4:'All data stays 100% local. Nothing transmitted to any server.',
+    rel_low:'Low reliability (play more)', rel_med:'Medium reliability', rel_high:'Strong reliability',
+    start_game:'Start',
+    games_btn:'Games', dash_btn:'Dashboard',
+    nav_tut:'Guide', nav_about:'About',
+    intro1:'<strong>Cognisphere</strong> is a collection of cognitive mini-games that estimate your mental profile — probabilistically, playfully, progressively.',
+    intro2:'Each session generates a snapshot across <strong>9 active cognitive dimensions</strong>: logical reasoning, cognitive speed, working memory, pattern intuition, reality simulation, epistemic thinking, verbal analogies, sequence logic, and flexible categorization.',
+    intro3:'This is <strong>not a clinical IQ test</strong>. Results are probabilistic tendencies — a living map that sharpens the more you play.',
+    onb_s1b:'A collection of short cognitive games estimating your mental profile across <strong>9 active domains</strong>: reasoning, speed, memory, patterns, reality, epistemic thinking, analogies, sequences, and cognitive flexibility.',
+    onb_disc:'Cognisphere does not provide an official IQ score. All results are <strong>probabilistic estimates</strong> — tendencies, not fixed facts.',
+    onb_s3b:'Each mini-game takes <strong>30–90 seconds</strong>. Your data stays <strong>100% local</strong> on your device.',
+    onb_start:'Start Exploring →',
+  },
+  fr:{
+    back:'← Retour', next:'Suivant →', submit:'Valider →', playagain:'Rejouer',
+    correct:'✦ Correct !', wrong:'✗ Réponse :', score:'Score',
+    hub_title:'Bibliothèque de jeux', hub_sub:'Sélectionnez un jeu pour entraîner ou évaluer un domaine.',
+    tut_title:'Tutoriel', tut_sub:'Comment chaque jeu fonctionne et ce qu\'il mesure.',
+    apt_section:'Les 9 domaines cognitifs actifs',
+    dash_title:'Votre profil cognitif', dash_sub:'Estimations probabilistes — jouez plus pour améliorer la fiabilité.',
+    dash_empty:'Aucune donnée. Jouez quelques parties d\'abord.',
+    dash_play:'Commencer', gi_label:'Indice global Cognisphere',
+    gi_sub_more:'Jouez plus pour construire votre profil',
+    stat1:'Sessions', stat2:'Meilleur domaine', apt_scores:'Scores par domaine',
+    radar_title:'Radar cognitif', hist_title:'Sessions récentes',
+    reset:'Réinitialiser', reset_confirm:'Effacer toutes les données ? Impossible d\'annuler.',
+    about_h1:'À propos', about_h2:'Limites scientifiques', about_h3:'Confidentialité', about_h4:'Contact',
+    about_p1:'Mini-jeux cognitifs estimant votre profil sur 9 dimensions actives. Outil exploratoire et probabiliste — non clinique.',
+    about_p2:'La V2 Bêta couvre 9 domaines. Pensée spatiale, créativité, métacognition, intelligence émotionnelle, empathie et attention prévus en V3.',
+    about_p3:'Tous les scores sont des estimations probabilistes — pas des mesures psychométriques validées.',
+    about_p4:'Toutes les données restent 100% locales. Rien n\'est transmis à aucun serveur.',
+    rel_low:'Fiabilité faible (jouez plus)', rel_med:'Fiabilité moyenne', rel_high:'Fiabilité élevée',
+    start_game:'Démarrer',
+    games_btn:'Jeux', dash_btn:'Tableau',
+    nav_tut:'Guide', nav_about:'À propos',
+    intro1:'<strong>Cognisphere</strong> est une collection de mini-jeux cognitifs qui estiment votre profil mental — de façon probabiliste, ludique et évolutive.',
+    intro2:'Chaque session génère un instantané sur <strong>9 dimensions cognitives actives</strong> : raisonnement logique, vitesse cognitive, mémoire de travail, intuition de motifs, simulation réaliste, pensée épistémique, analogies verbales, séquences numériques et flexibilité cognitive.',
+    intro3:'Ceci <strong>n\'est pas un test de QI clinique</strong>. Les résultats sont des tendances probabilistes — une carte vivante qui se précise au fil des parties.',
+    onb_s1b:'Une collection de courts jeux cognitifs estimant votre profil sur <strong>9 domaines actifs</strong> : raisonnement, vitesse, mémoire, motifs, réalité, pensée épistémique, analogies, séquences et flexibilité cognitive.',
+    onb_disc:'Cognisphere ne fournit pas de score de QI officiel. Tous les résultats sont des <strong>estimations probabilistes</strong> — des tendances, pas des vérités fixes.',
+    onb_s3b:'Chaque mini-jeu dure <strong>30–90 secondes</strong>. Vos données restent <strong>100% locales</strong> sur votre appareil.',
+    onb_start:'Commencer →',
+  }
+};
+
+function t(k){return (TX[LANG]||TX.en)[k]||k;}
+
+// ── APPLY ALL TRANSLATIONS ────────────────────────
+function applyI18n(){
+  const L=LANG;
+
+  // Lang buttons
+  document.querySelectorAll('.lang-btn').forEach(b=>{
+    b.classList.toggle('active', b.dataset.lang===L);
+  });
+
+  // Static text map (id → translation key)
+  const textMap={
+    'i-hub-title':'hub_title','i-hub-sub':'hub_sub',
+    'i-tut-title':'tut_title','i-tut-sub':'tut_sub',
+    'i-apt-title':'apt_section',
+    'i-dash-title':'dash_title','i-dash-sub':'dash_sub',
+    'i-dash-empty':'dash_empty','i-dash-start':'dash_play',
+    'i-gi-label':'gi_label',
+    'i-stat1':'stat1','i-stat1b':'stat1','i-stat2':'stat2',
+    'i-apt-scores':'apt_scores','i-radar':'radar_title','i-history':'hist_title',
+    'i-reset':'reset','i-back-game':'back','i-tut-play':'dash_play',
+    'i-about-h1':'about_h1','i-about-p1':'about_p1','i-about-p2':'about_p2',
+    'i-about-h2':'about_h2','i-about-p3':'about_p3',
+    'i-about-h3':'about_h3','i-about-p4':'about_p4',
+    'i-about-h4':'about_h4',
+  };
+  Object.entries(textMap).forEach(([id,key])=>{
+    const el=document.getElementById(id);
+    if(el) el.textContent=t(key);
+  });
+
+  // innerHTML map (supports bold tags)
+  const htmlMap={
+    'i-intro1':t('intro1'),
+    'i-intro2':t('intro2'),
+    'i-intro3':t('intro3'),
+    'i-s1b':t('onb_s1b'),
+    'i-disc-body':t('onb_disc'),
+    'i-s3b':t('onb_s3b'),
+    'i-start':t('onb_start'),
+  };
+  Object.entries(htmlMap).forEach(([id,html])=>{
+    const el=document.getElementById(id);
+    if(el) el.innerHTML=html;
+  });
+
+  // Nav buttons text
+  const navMap={
+    'nb-hub':t('games_btn'),'nb-dashboard':t('dash_btn'),
+    'nb-tutorial':t('nav_tut'),'nb-about':t('nav_about'),
+    'mm-hub':t('games_btn'),'mm-dashboard':t('dash_btn'),
+    'mm-tutorial':t('nav_tut'),'mm-about':t('nav_about'),
+  };
+  Object.entries(navMap).forEach(([id,txt])=>{
+    const el=document.getElementById(id);
+    if(el) el.textContent=txt;
+  });
+
+  // Home badges/buttons
+  const homeMap={
+    'i-home-badge': L==='fr'?'✦ Explorateur cognitif · V2 Bêta':'✦ Cognitive Profile Explorer · V2 Beta',
+    'i-home-tagline': L==='fr'?'Explorez votre esprit. Entraînez votre spectre.':'Explore your mind. Train your spectrum.',
+    'i-cta1': L==='fr'?'⟡ Commencer l\'évaluation':'⟡ Begin Assessment',
+    'i-cta2': L==='fr'?'Voir les jeux':'Browse Games',
+    'i-cta3': L==='fr'?'📖 Guide':'📖 Guide',
+    'i-footer': L==='fr'?'V2 Bêta — Estimation, pas diagnostic.':'V2 Beta — Estimation, not diagnosis.',
+  };
+  Object.entries(homeMap).forEach(([id,txt])=>{
+    const el=document.getElementById(id);
+    if(el) el.textContent=txt;
+  });
+
+  // Home aptitude chips
+  const chips={
+    'i-apt-reasoning': L==='fr'?'Raisonnement logique':'Logical Reasoning',
+    'i-apt-speed':     L==='fr'?'Vitesse cognitive':'Cognitive Speed',
+    'i-apt-memory':    L==='fr'?'Mémoire de travail':'Working Memory',
+    'i-apt-pattern':   L==='fr'?'Intuition de motifs':'Pattern Intuition',
+    'i-apt-reality':   L==='fr'?'Simulation réaliste':'Reality Simulation',
+    'i-apt-epistemic': L==='fr'?'Pensée épistémique':'Epistemic Thinking',
+    'i-apt-analogy':   L==='fr'?'Analogies verbales':'Verbal Analogies',
+    'i-apt-sequence':  L==='fr'?'Séquences numériques':'Number Sequences',
+    'i-apt-flex':      L==='fr'?'Flexibilité cognitive':'Cognitive Flexibility',
+  };
+  Object.entries(chips).forEach(([id,txt])=>{
+    const el=document.getElementById(id);
+    if(el) el.textContent=txt;
+  });
+
+  // Onboarding static labels
+  const onbMap={
+    'i-s1n': L==='fr'?'Étape 1/3':'Step 1/3',
+    'i-s1t': L==='fr'?'Qu\'est-ce que Cognisphere ?':'What is Cognisphere?',
+    'i-s2n': L==='fr'?'Étape 2/3':'Step 2/3',
+    'i-s2t': L==='fr'?'Important à savoir':'Important to know',
+    'i-disc-label': L==='fr'?'⚠ Pas un test clinique':'⚠ Not a clinical test',
+    'i-s3n': L==='fr'?'Étape 3/3':'Step 3/3',
+    'i-s3t': L==='fr'?'Comment ça marche':'How it works',
+    'i-back1':t('back'),'i-cont1':t('next'),
+    'i-back2':t('back'),'i-cont2':t('next'),
+    'i-back3':t('back'),
+  };
+  Object.entries(onbMap).forEach(([id,txt])=>{
+    const el=document.getElementById(id);
+    if(el) el.textContent=txt;
+  });
+}
+
+function setLang(l){
+  LANG=l;
+  localStorage.setItem('cog_lang',l);
+  applyI18n();
+  // Re-render dynamic sections
+  const act=document.querySelector('.page.active');
+  if(act){
+    if(act.id==='page-hub') renderHub();
+    if(act.id==='page-tutorial') renderTutorial();
+    if(act.id==='page-dashboard') renderDashboard();
+  }
+}
+
+// ── THEME ────────────────────────────────────────
+function toggleTheme(){
+  const html=document.documentElement;
+  const isDark=html.getAttribute('data-theme')==='dark';
+  html.setAttribute('data-theme',isDark?'light':'dark');
+  document.getElementById('theme-btn').textContent=isDark?'☀':'☽';
+}
+
+// ── HAMBURGER MOBILE MENU ────────────────────────
+function toggleMobileMenu(){
+  const m=document.getElementById('mobile-menu');
+  if(m) m.classList.toggle('open');
+}
+
+// ── NAVIGATION ───────────────────────────────────
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  const page=document.getElementById('page-'+id);
+  if(page) page.classList.add('active');
+  // Highlight nav btn
+  const btn=document.getElementById('nb-'+id);
+  if(btn) btn.classList.add('active');
+  window.scrollTo(0,0);
+  if(id==='hub') renderHub();
+  if(id==='tutorial') renderTutorial();
+  if(id==='dashboard') renderDashboard();
+}
+
+function nextOnboardStep(n){
+  document.querySelectorAll('.onboarding-step').forEach(s=>s.classList.remove('active'));
+  const el=document.getElementById('step-'+n);
+  if(el) el.classList.add('active');
+  const prog=document.getElementById('onboard-progress');
+  if(prog) prog.style.width=(n/3*100)+'%';
+}
+
+// ── TOAST ────────────────────────────────────────
+function toast(msg,type='info'){
+  const colors={info:'#4af0d8',success:'#4ade80',warn:'#f0c060',error:'#f87171'};
+  let c=document.getElementById('toast-anchor');
+  if(!c){c=document.createElement('div');c.id='toast-anchor';c.style.cssText='position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:8px;align-items:flex-end;pointer-events:none;';document.body.appendChild(c);}
+  const d=document.createElement('div');
+  d.style.cssText=`background:var(--card);border:1px solid ${colors[type]||colors.info};color:var(--text);padding:9px 18px;border-radius:40px;font-size:.8rem;font-family:'Sora',sans-serif;opacity:0;transition:opacity .3s;pointer-events:none;box-shadow:0 4px 20px rgba(0,0,0,.3);`;
+  d.textContent=msg;
+  c.appendChild(d);
+  requestAnimationFrame(()=>{d.style.opacity='1';});
+  setTimeout(()=>{d.style.opacity='0';setTimeout(()=>d.remove(),400);},2600);
+}
+
+// ── CANVAS PARTICLES ─────────────────────────────
+(function(){
+  const cv=document.getElementById('bg-canvas');
+  if(!cv) return;
+  const ctx=cv.getContext('2d');
+  let W,H,pts=[];
+  function resize(){W=cv.width=innerWidth;H=cv.height=innerHeight;}
+  resize(); window.addEventListener('resize',resize);
+  for(let i=0;i<55;i++) pts.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.4+.4,vx:(Math.random()-.5)*.22,vy:(Math.random()-.5)*.22,a:Math.random()*.4+.12});
+  function frame(){
+    ctx.clearRect(0,0,W,H);
+    pts.forEach(p=>{
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.x<0)p.x=W; if(p.x>W)p.x=0; if(p.y<0)p.y=H; if(p.y>H)p.y=0;
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(74,240,216,${p.a})`; ctx.fill();
+    });
+    requestAnimationFrame(frame);
+  }
+  frame();
+})();
+
+// ── APTITUDES ────────────────────────────────────
+const APTS={
+  reasoning:{icon:'◈',col:'#a78bfa',en:'Logical Reasoning',fr:'Raisonnement logique'},
+  speed:    {icon:'⚡',col:'#4af0d8',en:'Cognitive Speed',  fr:'Vitesse cognitive'},
+  memory:   {icon:'◎',col:'#f0c060',en:'Working Memory',    fr:'Mémoire de travail'},
+  pattern:  {icon:'△',col:'#60d0f0',en:'Pattern Intuition', fr:'Intuition de motifs'},
+  reality:  {icon:'≋',col:'#f87171',en:'Reality Simulation',fr:'Simulation réaliste'},
+  epistemic:{icon:'◉',col:'#c0a0ff',en:'Epistemic Thinking',fr:'Pensée épistémique'},
+  analogy:  {icon:'⇌',col:'#80f0b0',en:'Verbal Analogy',    fr:'Analogie verbale'},
+  sequence: {icon:'∿',col:'#f0a060',en:'Number Sequences',  fr:'Séquences numériques'},
+  flex:     {icon:'⟳',col:'#f0e060',en:'Cog. Flexibility',  fr:'Flexibilité cognitive'},
+};
+const APT_DESC={
+  en:{
+    reasoning:'Draw valid conclusions from premises; detect logical argument structures.',
+    speed:'Classify and respond to perceptual stimuli as quickly as possible.',
+    memory:'Hold and reproduce a sequence of items from short-term active storage.',
+    pattern:'Detect a hidden mathematical rule from two or three given examples.',
+    reality:'Rank real-world scenarios by plausibility, weighing causes and probabilities.',
+    epistemic:'Reason about what is unknown or indirectly inferable from partial evidence.',
+    analogy:'Perceive conceptual relationships and map them from one domain to another.',
+    sequence:'Identify mathematical patterns in number series and extrapolate the next term.',
+    flex:'Switch quickly between classification rules — mental agility under changing constraints.',
+  },
+  fr:{
+    reasoning:'Tirer des conclusions valides de prémisses ; détecter des structures d\'argument logiques.',
+    speed:'Classifier et répondre à des stimuli perceptifs le plus rapidement possible.',
+    memory:'Retenir et reproduire une séquence d\'éléments depuis la mémoire active à court terme.',
+    pattern:'Détecter une règle mathématique cachée à partir de deux ou trois exemples donnés.',
+    reality:'Classer des scénarios par plausibilité, en pesant causes et probabilités.',
+    epistemic:'Raisonner sur ce qui est inconnu ou déductible indirectement d\'indices partiels.',
+    analogy:'Percevoir des relations conceptuelles et les transposer d\'un domaine à l\'autre.',
+    sequence:'Identifier des patterns mathématiques dans des séries numériques et extrapoler.',
+    flex:'Changer rapidement de règles de classification — agilité mentale sous contraintes variables.',
+  }
+};
+
+// ── GAMES REGISTRY ───────────────────────────────
+const GAMES=[
+  {id:'logic_bridge',   apt:'reasoning',en:'Logic Bridge',       fr:'Pont logique',       icon:'◈',
+   desc_en:'Identify the valid conclusion from two logical premises.',
+   desc_fr:'Identifiez la conclusion valide à partir de deux prémisses logiques.',
+   play:playLogicBridge},
+  {id:'symbol_sprint',  apt:'speed',    en:'Symbol Sprint',      fr:'Sprint de symboles', icon:'⚡',
+   desc_en:'Tap the target symbols as fast as you can — avoid the others.',
+   desc_fr:'Tapez les symboles cibles le plus vite possible — évitez les autres.',
+   play:playSymbolSprint},
+  {id:'memory_stack',   apt:'memory',   en:'Memory Stack',       fr:'Pile mémorielle',    icon:'◎',
+   desc_en:'Memorise a sequence of items, then reproduce it in order.',
+   desc_fr:'Mémorisez une séquence d\'objets puis reproduisez-la dans l\'ordre.',
+   play:playMemoryStack},
+  {id:'pattern_tri',    apt:'pattern',  en:'Pattern Triangles',  fr:'Triangles-motifs',   icon:'△',
+   desc_en:'Find the hidden mathematical rule linking numbers in triangle pairs.',
+   desc_fr:'Trouvez la règle mathématique cachée liant les nombres dans des paires de triangles.',
+   play:playPatternTriangles},
+  {id:'reality_rank',   apt:'reality',  en:'Reality Rank',       fr:'Classement réel',    icon:'≋',
+   desc_en:'Rank hypotheses from most to least plausible.',
+   desc_fr:'Classez des hypothèses de la plus à la moins plausible.',
+   play:playRealityRank},
+  {id:'iceberg',        apt:'epistemic',en:'Iceberg Inference',  fr:'Inférence iceberg',  icon:'◉',
+   desc_en:'What most likely lies beneath the surface of a situation?',
+   desc_fr:'Qu\'est-ce qui se cache le plus probablement sous la surface d\'une situation ?',
+   play:playIcebergInference},
+  {id:'verbal_analogy', apt:'analogy',  en:'Verbal Analogy',     fr:'Analogie verbale',   icon:'⇌',
+   desc_en:'A is to B as C is to ? — find the conceptual relationship.',
+   desc_fr:'A est à B comme C est à ? — trouvez la relation conceptuelle.',
+   play:playVerbalAnalogy},
+  {id:'num_sequence',   apt:'sequence', en:'Number Sequence',    fr:'Séquence numérique', icon:'∿',
+   desc_en:'Find the next number in the mathematical series.',
+   desc_fr:'Trouvez le prochain nombre de la série mathématique.',
+   play:playNumberSequence},
+  {id:'rule_shift',     apt:'flex',     en:'Rule Shift',         fr:'Changement de règle',icon:'⟳',
+   desc_en:'Sort items by a rule — but the rule can change at any moment.',
+   desc_fr:'Triez les objets selon une règle — mais la règle peut changer à tout moment.',
+   play:playRuleShift},
+];
+
+// ── HUB RENDER ───────────────────────────────────
+function renderHub(){
+  const grid=document.getElementById('games-grid');
+  if(!grid) return;
+  grid.innerHTML='';
+  GAMES.forEach(g=>{
+    const apt=APTS[g.apt];
+    const sc=DATA.scores[g.apt];
+    const desc=LANG==='fr'?g.desc_fr:g.desc_en;
+    const card=document.createElement('div');
+    card.className='game-card';
+    card.innerHTML=`
+      <span class="game-icon" style="color:${apt.col}">${g.icon}</span>
+      <div class="game-aptitude" style="color:${apt.col}">${LANG==='fr'?apt.fr:apt.en}</div>
+      <div class="game-name">${LANG==='fr'?g.fr:g.en}</div>
+      <div class="game-desc">${desc}</div>
+      <div style="margin-top:auto;display:flex;align-items:center;justify-content:space-between;padding-top:12px;">
+        ${sc!==undefined?`<span style="color:${apt.col};font-weight:600;font-size:.88rem;">${sc}<span style="color:var(--text3);font-size:.72rem;">/100</span></span>`:'<span></span>'}
+        <button class="btn btn-primary btn-sm" onclick="launchGame('${g.id}')">${t('start_game')}</button>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+function launchGame(id){
+  const g=GAMES.find(x=>x.id===id);
+  if(!g){ console.error('Game not found:',id); return; }
+  const apt=APTS[g.apt];
+  const gsApt=document.getElementById('gs-aptitude');
+  const gsTitle=document.getElementById('gs-title');
+  const gsTimer=document.getElementById('gs-timer');
+  const gameArea=document.getElementById('game-area');
+  if(gsApt){ gsApt.textContent=LANG==='fr'?apt.fr:apt.en; gsApt.style.color=apt.col; }
+  if(gsTitle){ gsTitle.textContent=LANG==='fr'?g.fr:g.en; }
+  if(gsTimer){ gsTimer.textContent='—'; gsTimer.classList.remove('urgent'); }
+  if(gameArea) gameArea.innerHTML='';
+  showPage('game');
+  // Petit délai pour que la page soit visible avant de lancer le jeu
+  setTimeout(()=>g.play(), 80);
+}
+
+// ── TUTORIAL RENDER ──────────────────────────────
+function renderTutorial(){
+  const grid=document.getElementById('tut-grid');
+  const gloss=document.getElementById('apt-glossary');
+  if(!grid) return;
+  grid.innerHTML='';
+  GAMES.forEach(g=>{
+    const apt=APTS[g.apt];
+    const desc=LANG==='fr'?g.desc_fr:g.desc_en;
+    const card=document.createElement('div');
+    card.className='tut-card';
+    card.style.cssText='background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:20px;display:flex;flex-direction:column;gap:7px;cursor:pointer;';
+    card.innerHTML=`<span style="font-size:1.8rem;color:${apt.col}">${g.icon}</span>
+      <div style="font-weight:600;font-size:1rem;">${LANG==='fr'?g.fr:g.en}</div>
+      <div style="font-size:.73rem;font-weight:600;letter-spacing:.06em;color:${apt.col};text-transform:uppercase;">${LANG==='fr'?apt.fr:apt.en}</div>
+      <div style="color:var(--text2);font-size:.82rem;line-height:1.6;">${desc}</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:4px;align-self:flex-start;" onclick="launchGame('${g.id}')">${t('start_game')}</button>`;
+    grid.appendChild(card);
+  });
+  if(!gloss) return;
+  gloss.innerHTML='';
+  Object.entries(APTS).forEach(([key,apt])=>{
+    const desc=(APT_DESC[LANG]||APT_DESC.en)[key]||'';
+    const item=document.createElement('div');
+    item.className='apt-gloss-item';
+    item.innerHTML=`<div class="apt-gloss-name" style="color:${apt.col}">${apt.icon} ${LANG==='fr'?apt.fr:apt.en}</div><div class="apt-gloss-desc">${desc}</div>`;
+    gloss.appendChild(item);
+  });
+}
+
+// ── SCORE RECORDING ──────────────────────────────
+function recordScore(aptKey,score,gameName){
+  const prev=DATA.scores[aptKey];
+  DATA.scores[aptKey]=prev===undefined?score:Math.round(prev*.6+score*.4);
+  DATA.sessions.unshift({apt:aptKey,game:gameName,score,ts:Date.now()});
+  if(DATA.sessions.length>60) DATA.sessions=DATA.sessions.slice(0,60);
+  save();
+  toast(`${gameName}: ${score}/100`, score>=70?'success':score>=40?'info':'warn');
+}
+
+// ── DASHBOARD ────────────────────────────────────
+let radarChart=null;
+function renderDashboard(){
+  const keys=Object.keys(DATA.scores);
+  const empty=document.getElementById('dashboard-empty');
+  const content=document.getElementById('dashboard-content');
+  if(!keys.length){
+    if(empty) empty.classList.remove('hidden');
+    if(content) content.style.display='none';
+    return;
+  }
+  if(empty) empty.classList.add('hidden');
+  if(content) content.style.display='';
+
+  const vals=keys.map(k=>DATA.scores[k]);
+  const gi=Math.round(vals.reduce((a,b)=>a+b,0)/vals.length);
+  const giEl=document.getElementById('gi-value');
+  const giSub=document.getElementById('gi-sub');
+  const giRel=document.getElementById('gi-reliability');
+  if(giEl) giEl.textContent=gi;
+  const n=DATA.sessions.length;
+  if(giSub) giSub.textContent=n<5?t('gi_sub_more'):n<15?t('rel_low'):n<40?t('rel_med'):t('rel_high');
+  if(giRel) giRel.innerHTML='';
+
+  const statGames=document.getElementById('stat-games');
+  const statBest=document.getElementById('stat-best');
+  const statBestName=document.getElementById('stat-best-name');
+  if(statGames) statGames.textContent=n;
+  const bestKey=keys.reduce((a,b)=>DATA.scores[a]>DATA.scores[b]?a:b);
+  if(statBest) statBest.textContent=DATA.scores[bestKey];
+  if(statBestName) statBestName.textContent=LANG==='fr'?APTS[bestKey].fr:APTS[bestKey].en;
+
+  // Bars
+  const bars=document.getElementById('apt-bars');
+  if(bars){
+    bars.innerHTML='';
+    Object.entries(APTS).forEach(([key,apt])=>{
+      const s=DATA.scores[key];
+      if(s===undefined) return;
+      const row=document.createElement('div');
+      row.className='apt-bar-row';
+      row.innerHTML=`<div class="apt-bar-label">${LANG==='fr'?apt.fr:apt.en}</div>
+        <div class="apt-bar-track"><div class="apt-bar-fill" style="width:${s}%;background:${apt.col}"></div></div>
+        <div class="apt-bar-score" style="color:${apt.col}">${s}</div>`;
+      bars.appendChild(row);
+    });
+  }
+
+  // Radar
+  const radarCanvas=document.getElementById('radar-chart');
+  if(radarCanvas && typeof Chart!=='undefined'){
+    const labels=keys.map(k=>{const a=APTS[k];return a?(LANG==='fr'?a.fr:a.en).split(' ')[0]:k;});
+    const rdata=keys.map(k=>DATA.scores[k]);
+    if(radarChart){radarChart.destroy();radarChart=null;}
+    radarChart=new Chart(radarCanvas.getContext('2d'),{
+      type:'radar',
+      data:{labels,datasets:[{data:rdata,borderColor:'#4af0d8',backgroundColor:'rgba(74,240,216,.1)',pointBackgroundColor:'#4af0d8',borderWidth:2}]},
+      options:{responsive:true,plugins:{legend:{display:false}},scales:{r:{beginAtZero:true,max:100,ticks:{display:false},grid:{color:'rgba(100,130,200,.15)'},pointLabels:{color:'#9aaac8',font:{size:10,family:'Sora'}}}}}
+    });
+  }
+
+  // History
+  const hist=document.getElementById('history-list');
+  if(hist){
+    hist.innerHTML='';
+    DATA.sessions.slice(0,10).forEach(s=>{
+      const apt=APTS[s.apt];
+      const row=document.createElement('div');
+      row.className='history-item';
+      row.innerHTML=`<span style="color:${apt?apt.col:'var(--cyan)'}">${apt?apt.icon:'◎'} ${s.game}</span>
+        <span style="color:var(--text3);font-size:.72rem;">${new Date(s.ts).toLocaleDateString()}</span>
+        <span style="color:${apt?apt.col:'var(--cyan)'};font-weight:600;">${s.score}/100</span>`;
+      hist.appendChild(row);
+    });
+  }
+}
+
+function resetData(){
+  if(!confirm(t('reset_confirm'))) return;
+  DATA={sessions:[],scores:{}};save();
+  if(radarChart){radarChart.destroy();radarChart=null;}
+  renderDashboard();
+  toast(LANG==='fr'?'Données effacées.':'Data cleared.','warn');
+}
+
+function exportJSON(){
+  const b=new Blob([JSON.stringify(DATA,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='cognisphere_v2.json';a.click();
+}
+function exportPDF(){
+  if(typeof window.jspdf==='undefined'){alert('PDF library loading…');return;}
+  const {jsPDF}=window.jspdf;
+  const doc=new jsPDF();
+  doc.setFont('helvetica','bold');doc.setFontSize(18);doc.text('Cognisphere — Cognitive Profile',20,20);
+  doc.setFontSize(10);doc.setFont('helvetica','normal');doc.text('Generated: '+new Date().toLocaleDateString(),20,30);
+  let y=44;doc.setFont('helvetica','bold');doc.setFontSize(12);doc.text('Domain Scores',20,y);y+=8;
+  doc.setFont('helvetica','normal');doc.setFontSize(10);
+  Object.entries(DATA.scores).forEach(([k,v])=>{const a=APTS[k];doc.text(`${a?a.en:k}: ${v}/100`,24,y);y+=7;});
+  y+=6;doc.setFont('helvetica','bold');doc.setFontSize(12);doc.text('Recent Sessions',20,y);y+=7;
+  doc.setFont('helvetica','normal');doc.setFontSize(9);
+  DATA.sessions.slice(0,15).forEach(s=>{doc.text(`${s.game} — ${s.score}/100  ${new Date(s.ts).toLocaleDateString()}`,24,y);y+=6;});
+  doc.save('cognisphere_profile.pdf');
+}
+
+// ── GAME ENGINE HELPERS ──────────────────────────
+let timerIv=null;
+function startCountdown(secs,onEnd){
+  let rem=secs;
+  const el=document.getElementById('gs-timer');
+  if(el){el.textContent=rem;el.classList.remove('urgent');}
+  if(timerIv){clearInterval(timerIv);timerIv=null;}
+  timerIv=setInterval(()=>{
+    rem--;
+    if(el){el.textContent=rem;if(rem<=5)el.classList.add('urgent');}
+    if(rem<=0){clearInterval(timerIv);timerIv=null;onEnd();}
+  },1000);
+}
+function stopTimer(){
+  if(timerIv){clearInterval(timerIv);timerIv=null;}
+  const el=document.getElementById('gs-timer');
+  if(el){el.textContent='—';el.classList.remove('urgent');}
+}
+function GA(){return document.getElementById('game-area');}
+function shuffled(arr){return [...arr].sort(()=>Math.random()-.5);}
+
+function finishCard(apt,score,gameName,correct,total){
+  stopTimer();
+  recordScore(apt,score,gameName);
+  const aptObj=APTS[apt];
+  const playAgainId=GAMES.find(g=>g.apt===apt)?.id||'';
+  GA().innerHTML=`<div class="gc">
+    <div class="gc-score" style="color:${aptObj.col}">${score}<span style="font-size:1rem;color:var(--text3)">/100</span></div>
+    <div class="gc-label">${correct}/${total} ${LANG==='fr'?'correctes':'correct'}</div>
+    <div class="gc-btns">
+      ${playAgainId?`<button class="btn btn-primary btn-sm" onclick="launchGame('${playAgainId}')">${t('playagain')}</button>`:''}
+      <button class="btn btn-secondary btn-sm" onclick="showPage('hub')">${t('games_btn')}</button>
+      <button class="btn btn-secondary btn-sm" onclick="showPage('dashboard')">${t('dash_btn')}</button>
+    </div>
+  </div>`;
+}
+
+// Multi-choice question helper
+function mcQuestion({meta,prompt,options,correct,onDone}){
+  const opts=shuffled(options.map((o,i)=>({text:o,isCorrect:i===correct})));
+  GA().innerHTML=`<div class="gc">
+    ${meta?`<div class="gc-meta">${meta}</div>`:''}
+    <div class="gc-prompt">${prompt}</div>
+    <div class="gc-opts">${opts.map(o=>`<button class="gc-opt" onclick="window.__mcPick(this)">${o.text}</button>`).join('')}</div>
+    <div id="gc-fb"></div>
+  </div>`;
+  // Attach correct flag to each button
+  const btns=GA().querySelectorAll('.gc-opt');
+  opts.forEach((o,i)=>{btns[i]._isCorrect=o.isCorrect;btns[i]._text=o.text;});
+  window.__mcPick=function(btn){
+    GA().querySelectorAll('.gc-opt').forEach(b=>{b.disabled=true;b.onclick=null;});
+    const ok=btn._isCorrect;
+    btn.classList.add(ok?'gc-ok':'gc-err');
+    if(!ok) GA().querySelectorAll('.gc-opt').forEach(b=>{if(b._isCorrect)b.classList.add('gc-ok');});
+    const fb=document.getElementById('gc-fb');
+    if(fb) fb.innerHTML=`<div class="gc-fb ${ok?'gc-fb-ok':'gc-fb-err'}">${ok?t('correct'):t('wrong')+' '+[...GA().querySelectorAll('.gc-ok')].map(b=>b.textContent)[0]}</div>
+      <button class="btn btn-primary btn-sm mt-8" onclick="window.__mcNext(${ok})">${t('next')}</button>`;
+    window.__mcNext=onDone;
+  };
+}
+
+// ═══════════════════════════════════════════════
+// GAME 1 — LOGIC BRIDGE
+// ═══════════════════════════════════════════════
+function playLogicBridge(){
+  const PZS=[
+    {p1_en:'All musicians are creative.',p1_fr:'Tous les musiciens sont créatifs.',
+     p2_en:'Axel is a musician.',p2_fr:'Axel est un musicien.',
+     opts_en:['Axel is creative.','Axel is not creative.','All creative people are musicians.'],
+     opts_fr:['Axel est créatif.','Axel n\'est pas créatif.','Toutes les personnes créatives sont musiciens.'],c:0},
+    {p1_en:'No reptile is warm-blooded.',p1_fr:'Aucun reptile n\'est à sang chaud.',
+     p2_en:'A snake is a reptile.',p2_fr:'Un serpent est un reptile.',
+     opts_en:['A snake is not warm-blooded.','A snake is warm-blooded.','All reptiles are snakes.'],
+     opts_fr:['Un serpent n\'est pas à sang chaud.','Un serpent est à sang chaud.','Tous les reptiles sont des serpents.'],c:0},
+    {p1_en:'All planets orbit a star.',p1_fr:'Toutes les planètes orbitent autour d\'une étoile.',
+     p2_en:'Earth is a planet.',p2_fr:'La Terre est une planète.',
+     opts_en:['Earth orbits a star.','Stars orbit Earth.','Not all planets orbit a star.'],
+     opts_fr:['La Terre orbite autour d\'une étoile.','Les étoiles orbitent autour de la Terre.','Toutes les planètes n\'orbitent pas.'],c:0},
+    {p1_en:'If it rains, the ground is wet.',p1_fr:'S\'il pleut, le sol est mouillé.',
+     p2_en:'It is raining.',p2_fr:'Il pleut.',
+     opts_en:['The ground is wet.','The ground is dry.','Rain causes nothing.'],
+     opts_fr:['Le sol est mouillé.','Le sol est sec.','La pluie ne cause rien.'],c:0},
+    {p1_en:'All prime numbers > 2 are odd.',p1_fr:'Tous les nombres premiers > 2 sont impairs.',
+     p2_en:'7 is a prime number greater than 2.',p2_fr:'7 est un nombre premier supérieur à 2.',
+     opts_en:['7 is odd.','7 is even.','All odd numbers are prime.'],
+     opts_fr:['7 est impair.','7 est pair.','Tous les nombres impairs sont premiers.'],c:0},
+    {p1_en:'No cat is a dog.',p1_fr:'Aucun chat n\'est un chien.',
+     p2_en:'Milo is a cat.',p2_fr:'Milo est un chat.',
+     opts_en:['Milo is not a dog.','Milo is a dog.','Some cats are dogs.'],
+     opts_fr:['Milo n\'est pas un chien.','Milo est un chien.','Certains chats sont des chiens.'],c:0},
+  ];
+  const pool=shuffled(PZS).slice(0,5);
+  let idx=0,correct=0;
+  function next(ok){if(ok)correct++;idx++;show();}
+  function show(){
+    if(idx>=pool.length){finishCard('reasoning',Math.round(correct/pool.length*100),'Logic Bridge',correct,pool.length);return;}
+    const pz=pool[idx];
+    const p1=LANG==='fr'?pz.p1_fr:pz.p1_en;
+    const p2=LANG==='fr'?pz.p2_fr:pz.p2_en;
+    const opts=LANG==='fr'?pz.opts_fr:pz.opts_en;
+    const prompt=`<div class="premise-box"><div>${p1}</div><div>${p2}</div></div>
+      <div style="color:var(--text2);font-size:.82rem;text-align:center;margin-bottom:8px;">${LANG==='fr'?'Quelle conclusion est valide ?':'Which conclusion is valid?'}</div>`;
+    mcQuestion({meta:`${LANG==='fr'?'Puzzle':'Puzzle'} ${idx+1}/${pool.length}`,prompt,options:opts,correct:pz.c,onDone:(ok)=>next(ok)});
+  }
+  show();
+}
+
+// ═══════════════════════════════════════════════
+// GAME 2 — SYMBOL SPRINT
+// ═══════════════════════════════════════════════
+function playSymbolSprint(){
+  const SYMS=['▲','●','■','◆','★','▼','○','□'];
+  const TARGETS=['▲','●'];
+  const DUR=30;
+  let hits=0,misses=0;
+  GA().innerHTML=`<div class="gc">
+    <div class="gc-prompt" style="font-size:.88rem;">${LANG==='fr'?'Tapez uniquement ▲ ou ● — évitez les autres.':'Tap only ▲ or ● — avoid all others.'}</div>
+    <div style="display:flex;gap:18px;justify-content:center;font-size:2rem;color:#4af0d8;margin:4px 0;">▲ ●</div>
+    <div id="sprint-sym" class="sprint-sym">?</div>
+    <div id="sprint-score" style="color:var(--text2);font-size:.84rem;text-align:center;">Hits: 0 | Misses: 0</div>
+  </div>`;
+  let symIv=null;
+  function nextSym(){
+    const sym=SYMS[Math.floor(Math.random()*SYMS.length)];
+    const el=document.getElementById('sprint-sym');
+    if(!el) return;
+    el.textContent=sym;el.style.color=TARGETS.includes(sym)?'#4af0d8':'#f87171';
+    el.onclick=function(){
+      if(TARGETS.includes(sym))hits++;else misses++;
+      const sc=document.getElementById('sprint-score');
+      if(sc) sc.textContent=`Hits: ${hits} | Misses: ${misses}`;
+    };
+  }
+  symIv=setInterval(nextSym,850);
+  nextSym();
+  startCountdown(DUR,()=>{
+    clearInterval(symIv);
+    const total=hits+misses||1;
+    const score=Math.max(0,Math.min(100,Math.round(hits/total*100)-misses*3));
+    finishCard('speed',score,'Symbol Sprint',hits,total);
+  });
+}
+
+// ═══════════════════════════════════════════════
+// GAME 3 — MEMORY STACK
+// ═══════════════════════════════════════════════
+function playMemoryStack(){
+  const ITEMS=['🔵','🟢','🔴','🟡','🟠','🟣','⚪','🔶'];
+  const LEN=6;
+  const seq=Array.from({length:LEN},()=>ITEMS[Math.floor(Math.random()*ITEMS.length)]);
+  let answer=[];
+
+  GA().innerHTML=`<div class="gc">
+    <div class="gc-meta">${LANG==='fr'?'Mémorisez la séquence :':'Memorise the sequence:'}</div>
+    <div class="mem-row">${seq.map(s=>`<span class="mem-item">${s}</span>`).join('')}</div>
+    <div style="color:var(--text3);font-size:.8rem;text-align:center;margin-top:6px;">${LANG==='fr'?'5 secondes…':'5 seconds…'}</div>
+  </div>`;
+
+  setTimeout(()=>{
+    answer=[];
+    GA().innerHTML=`<div class="gc">
+      <div class="gc-meta">${LANG==='fr'?'Reproduisez dans l\'ordre :':'Reproduce in order:'}</div>
+      <div id="mem-ans" class="mem-row" style="min-height:52px;background:var(--bg3);border-radius:var(--r);padding:8px;margin-bottom:6px;"></div>
+      <div class="mem-row">${ITEMS.map(it=>`<button class="mem-key" onclick="window.mem_pick('${it}')">${it}</button>`).join('')}</div>
+      <div style="display:flex;gap:8px;justify-content:center;margin-top:10px;">
+        <button class="btn btn-ghost btn-sm" onclick="window.mem_clear()">⌫ ${LANG==='fr'?'Effacer':'Clear'}</button>
+        <button class="btn btn-primary btn-sm" id="mem-submit" onclick="window.mem_check()" disabled>${t('submit')}</button>
+      </div>
+    </div>`;
+    window.mem_pick=function(it){
+      if(answer.length>=LEN) return;
+      answer.push(it);
+      const el=document.getElementById('mem-ans');
+      if(el) el.innerHTML=answer.map(a=>`<span class="mem-item">${a}</span>`).join('');
+      const sub=document.getElementById('mem-submit');
+      if(sub) sub.disabled=answer.length<LEN;
+    };
+    window.mem_clear=function(){
+      answer=[];
+      const el=document.getElementById('mem-ans');if(el)el.innerHTML='';
+      const sub=document.getElementById('mem-submit');if(sub)sub.disabled=true;
+    };
+    window.mem_check=function(){
+      let c=0;seq.forEach((s,i)=>{if(answer[i]===s)c++;});
+      finishCard('memory',Math.round(c/LEN*100),'Memory Stack',c,LEN);
+    };
+  },5200);
+}
+
+// ═══════════════════════════════════════════════
+// GAME 4 — PATTERN TRIANGLES (règles cohérentes)
+// ═══════════════════════════════════════════════
+function playPatternTriangles(){
+  const RULE_SETS=[
+    {name:'A + B + (A×B)',fn:(a,b)=>a+b+a*b,ex:[[2,3,11],[1,4,9]],pzs:[[3,4,19],[2,5,17],[1,6,13],[4,3,19],[3,3,15]]},
+    {name:'A² + B',       fn:(a,b)=>a*a+b,  ex:[[3,2,11],[4,1,17]],pzs:[[2,5,9],[5,3,28],[3,6,15],[4,4,20],[2,3,7]]},
+    {name:'A × B + A',    fn:(a,b)=>a*b+a,  ex:[[3,4,15],[2,6,14]],pzs:[[4,3,16],[5,2,15],[3,5,18],[2,4,10],[6,2,18]]},
+    {name:'(A + B)²',     fn:(a,b)=>(a+b)*(a+b),ex:[[1,2,9],[2,3,25]],pzs:[[3,4,49],[1,3,16],[2,4,36],[3,3,36],[4,1,25]]},
+  ];
+  const RS=RULE_SETS[Math.floor(Math.random()*RULE_SETS.length)];
+  const pzs=shuffled(RS.pzs).slice(0,5);
+  let idx=0,correct=0;
+
+  function triSVG(a,b,val,hidden){
+    const col=hidden?'#f0c060':'#4af0d8';
+    const ans=hidden?'?':val;
+    return `<svg viewBox="0 0 120 105" width="106" height="93">
+      <polygon points="60,8 112,100 8,100" fill="none" stroke="#4af0d8" stroke-width="3.5" stroke-linejoin="round"/>
+      <line x1="60" y1="8" x2="60" y2="100" stroke="#4af0d8" stroke-width="1.2" stroke-dasharray="4,3" opacity=".3"/>
+      <text x="38" y="76" text-anchor="middle" font-size="16" font-family="Sora,sans-serif" fill="#e8edf8" font-weight="600">${a}</text>
+      <text x="82" y="76" text-anchor="middle" font-size="16" font-family="Sora,sans-serif" fill="#e8edf8" font-weight="600">${b}</text>
+      <text x="60" y="98" text-anchor="middle" font-size="16" font-family="Sora,sans-serif" font-weight="700" fill="${col}">${ans}</text>
+    </svg>`;
+  }
+
+  function show(){
+    if(idx>=pzs.length){finishCard('pattern',Math.round(correct/pzs.length*100),'Pattern Triangles',correct,pzs.length);return;}
+    const [a,b,ans]=pzs[idx];
+    const [e1a,e1b,e1c]=RS.ex[0],[e2a,e2b,e2c]=RS.ex[1];
+    const wrongs=new Set();
+    while(wrongs.size<3){const w=ans+Math.floor(Math.random()*14)-7;if(w!==ans&&w>0)wrongs.add(w);}
+    const opts=[ans,...wrongs].sort(()=>Math.random()-.5);
+    GA().innerHTML=`<div class="gc">
+      <div class="gc-meta">${LANG==='fr'?'Puzzle':'Puzzle'} ${idx+1}/${pzs.length}</div>
+      <div style="color:var(--cyan);font-size:.8rem;font-weight:600;text-align:center;margin-bottom:10px;">
+        ${LANG==='fr'?'Règle :':'Rule:'} <strong>${RS.name}</strong></div>
+      <div style="display:flex;justify-content:center;gap:14px;margin-bottom:10px;">
+        ${triSVG(e1a,e1b,e1c,false)}${triSVG(e2a,e2b,e2c,false)}
+      </div>
+      <div style="color:var(--text2);font-size:.82rem;text-align:center;margin-bottom:6px;">${LANG==='fr'?'Trouvez la valeur manquante :':'Find the missing value:'}</div>
+      <div style="display:flex;justify-content:center;margin-bottom:12px;">${triSVG(a,b,ans,true)}</div>
+      <div class="gc-opts">${opts.map(o=>`<button class="gc-opt" data-v="${o}" onclick="window.pt_pick(this,${o},${ans},${a},${b})">${o}</button>`).join('')}</div>
+      <div id="gc-fb"></div>
+    </div>`;
+  }
+
+  window.pt_pick=function(btn,chosen,ans,a,b){
+    GA().querySelectorAll('.gc-opt').forEach(bt=>{bt.disabled=true;bt.onclick=null;});
+    const ok=chosen===ans;if(ok)correct++;
+    btn.classList.add(ok?'gc-ok':'gc-err');
+    if(!ok) GA().querySelectorAll('.gc-opt').forEach(bt=>{if(+bt.dataset.v===ans)bt.classList.add('gc-ok');});
+    const fb=document.getElementById('gc-fb');
+    if(fb) fb.innerHTML=`<div class="gc-fb ${ok?'gc-fb-ok':'gc-fb-err'}">${ok?t('correct'):t('wrong')+' '+ans}</div>
+      <div style="color:var(--text3);font-size:.73rem;margin-top:4px;">${a} &amp; ${b} → ${RS.name} = ${ans}</div>
+      <button class="btn btn-primary btn-sm mt-8" onclick="window.pt_next()">${idx<pzs.length?t('next'):t('score')}</button>`;
+    idx++;
+  };
+  window.pt_next=show;
+  show();
+}
+
+// ═══════════════════════════════════════════════
+// GAME 5 — REALITY RANK
+// ═══════════════════════════════════════════════
+function playRealityRank(){
+  const SETS=[
+    {q_en:'You find your front door slightly open when you come home. You always lock it.',
+     q_fr:'Vous trouvez votre porte légèrement ouverte en rentrant. Vous la verrouillez toujours.',
+     opts_en:['You forgot to lock it this morning','A family member left it open','A gust of wind pushed it','A break-in occurred'],
+     opts_fr:['Vous avez oublié de la verrouiller','Un membre de la famille l\'a laissée ouverte','Une rafale de vent l\'a poussée','Une effraction a eu lieu'],
+     order:[0,1,2,3]},
+    {q_en:'A usually punctual friend hasn\'t replied to your message in 4 hours.',
+     q_fr:'Un ami habituellement ponctuel n\'a pas répondu depuis 4 heures.',
+     opts_en:['Phone off or battery dead','In a meeting or busy','Upset with you','Something serious happened'],
+     opts_fr:['Téléphone éteint ou déchargé','En réunion ou occupé','Fâché contre vous','Quelque chose de grave est arrivé'],
+     order:[0,1,2,3]},
+    {q_en:'Crime rose 15% in the 6 months after a new policy was introduced.',
+     q_fr:'La criminalité a augmenté de 15% dans les 6 mois suivant une nouvelle politique.',
+     opts_en:['Trend was already rising before','Seasonal / unrelated effect','Media increased reporting','Policy directly caused the rise'],
+     opts_fr:['Tendance déjà à la hausse avant','Effet saisonnier sans lien','Médias ont augmenté les signalements','La politique a directement causé la hausse'],
+     order:[0,1,2,3]},
+  ];
+  const set=SETS[Math.floor(Math.random()*SETS.length)];
+  const q=LANG==='fr'?set.q_fr:set.q_en;
+  const items=LANG==='fr'?set.opts_fr:set.opts_en;
+  let userOrder=[];
+
+  GA().innerHTML=`<div class="gc">
+    <div class="gc-meta">${LANG==='fr'?'Classez du plus au moins probable :':'Rank from most to least probable:'}</div>
+    <div class="premise-box">${q}</div>
+    <div id="rr-sel" class="rr-sel"></div>
+    <div id="rr-opts">${items.map((it,i)=>`<button class="rr-opt" data-i="${i}" onclick="window.rr_pick(this,${i})">${it}</button>`).join('')}</div>
+    <button class="btn btn-primary btn-sm mt-8" id="rr-sub" onclick="window.rr_check()" disabled>${t('submit')}</button>
+    <div id="gc-fb"></div>
+  </div>`;
+
+  window.rr_pick=function(btn,i){
+    btn.disabled=true;btn.onclick=null;btn.style.opacity='.35';
+    userOrder.push(i);
+    const sel=document.getElementById('rr-sel');
+    if(sel) sel.innerHTML+=`<span class="rr-chip">${userOrder.length}. ${items[i]}</span>`;
+    const sub=document.getElementById('rr-sub');
+    if(sub&&userOrder.length===items.length) sub.disabled=false;
+  };
+  window.rr_check=function(){
+    let pts=0;
+    userOrder.forEach((v,i)=>{if(v===set.order[i])pts++;});
+    const score=Math.round(pts/items.length*100);
+    recordScore('reality',score,'Reality Rank');
+    const fb=document.getElementById('gc-fb');
+    if(fb) fb.innerHTML=`<div class="gc-fb ${score>=75?'gc-fb-ok':'gc-fb-err'}">${score}/100</div>
+      <div style="color:var(--text3);font-size:.76rem;margin-top:6px;">${LANG==='fr'?'Ordre optimal :':'Optimal order:'} ${set.order.map(i=>items[i]).join(' → ')}</div>
+      <div class="gc-btns" style="margin-top:12px;">
+        <button class="btn btn-primary btn-sm" onclick="launchGame('reality_rank')">${t('playagain')}</button>
+        <button class="btn btn-secondary btn-sm" onclick="showPage('hub')">${t('games_btn')}</button>
+      </div>`;
+    const sub=document.getElementById('rr-sub');if(sub)sub.style.display='none';
+  };
+}
+
+// ═══════════════════════════════════════════════
+// GAME 6 — ICEBERG INFERENCE
+// ═══════════════════════════════════════════════
+function playIcebergInference(){
+  const QS=[
+    {obs_en:'A student always sits at the back, finishes tests first, but cannot explain answers verbally.',
+     obs_fr:'Un étudiant s\'assoit toujours au fond, finit les tests en premier, mais ne peut pas expliquer ses réponses à l\'oral.',
+     opts_en:['Exceptional intuitive ability','Memorised answers or cheating','Shy and anxious speaking','Tests are too easy'],
+     opts_fr:['Capacité intuitive exceptionnelle','Réponses mémorisées ou tricherie','Timide et anxieux à l\'oral','Les tests sont trop faciles'],c:1},
+    {obs_en:'A country\'s birth rate fell sharply over 20 years despite economic growth.',
+     obs_fr:'Le taux de natalité d\'un pays a chuté fortement en 20 ans malgré la croissance économique.',
+     opts_en:['People simply prefer fewer children','Complex interplay of urbanisation, education and cost of living','Government policy failed','Economic data was misleading'],
+     opts_fr:['Les gens préfèrent moins d\'enfants','Interaction complexe urbanisation, éducation et coût de vie','La politique gouvernementale a échoué','Les données économiques étaient trompeuses'],c:1},
+    {obs_en:'Every morning a shop has a wildly different queue length, yet the owner says business is consistent.',
+     obs_fr:'Chaque matin la file varie énormément, mais le propriétaire dit que les affaires sont stables.',
+     opts_en:['Demand fluctuates wildly','Arrival timing varies more than daily volume','The owner is mistaken','A competitor is drawing customers'],
+     opts_fr:['La demande varie fortement','Le timing des arrivées varie plus que le volume quotidien','Le propriétaire se trompe','Un concurrent attire les clients'],c:1},
+  ];
+  const pool=shuffled(QS).slice(0,3);
+  let idx=0,correct=0;
+  function next(ok){if(ok)correct++;idx++;show();}
+  function show(){
+    if(idx>=pool.length){finishCard('epistemic',Math.round(correct/pool.length*100),'Iceberg Inference',correct,pool.length);return;}
+    const q=pool[idx];
+    const obs=LANG==='fr'?q.obs_fr:q.obs_en;
+    const opts=LANG==='fr'?q.opts_fr:q.opts_en;
+    const prompt=`<div class="iceberg-obs"><span style="font-size:1.3rem;flex-shrink:0;">◉</span><span>${obs}</span></div>
+      <div style="color:var(--text2);font-size:.82rem;text-align:center;margin-bottom:8px;">${LANG==='fr'?'Ce qui se cache le plus probablement sous la surface :':'What most likely lies beneath the surface:'}</div>`;
+    mcQuestion({meta:`${idx+1}/${pool.length}`,prompt,options:opts,correct:q.c,onDone:(ok)=>next(ok)});
+  }
+  show();
+}
+
+// ═══════════════════════════════════════════════
+// GAME 7 — VERBAL ANALOGY
+// ═══════════════════════════════════════════════
+function playVerbalAnalogy(){
+  const QS=[
+    {a:'Book',b:'Library',c:'Painting',opts:['Museum','Canvas','Artist','Gallery'],c_idx:0,rel_fr:'contenant'},
+    {a:'Doctor',b:'Hospital',c:'Chef',opts:['Kitchen','Food','Restaurant','Knife'],c_idx:2,rel_fr:'lieu de travail'},
+    {a:'Fish',b:'Ocean',c:'Bird',opts:['Sky','Wing','Nest','Tree'],c_idx:0,rel_fr:'milieu naturel'},
+    {a:'Night',b:'Dark',c:'Day',opts:['Bright','Sun','Time','Noon'],c_idx:0,rel_fr:'propriété'},
+    {a:'Author',b:'Novel',c:'Composer',opts:['Piano','Concert','Symphony','Music'],c_idx:2,rel_fr:'création'},
+    {a:'Seed',b:'Tree',c:'Egg',opts:['Nest','Shell','Animal','Bird'],c_idx:3,rel_fr:'devient'},
+    {a:'Pupil',b:'Eye',c:'Eardrum',opts:['Hear','Sound','Ear','Drum'],c_idx:2,rel_fr:'partie de'},
+    {a:'Cold',b:'Shiver',c:'Hot',opts:['Sun','Sweat','Temperature','Burn'],c_idx:1,rel_fr:'cause'},
+  ];
+  const pool=shuffled(QS).slice(0,5);
+  let idx=0,correct=0;
+  function next(ok){if(ok)correct++;idx++;show();}
+  function show(){
+    if(idx>=pool.length){finishCard('analogy',Math.round(correct/pool.length*100),'Verbal Analogy',correct,pool.length);return;}
+    const q=pool[idx];
+    const prompt=`<div class="analogy-row">
+      <span class="analogy-word">${q.a}</span><span class="analogy-arr">→</span>
+      <span class="analogy-word" style="color:var(--violet)">${q.b}</span>
+      <span class="analogy-sep">${LANG==='fr'?'est à':'is to'}</span>
+      <span class="analogy-word">${q.c}</span><span class="analogy-arr">→</span>
+      <span class="analogy-word" style="color:var(--gold)">?</span>
+    </div>`;
+    mcQuestion({meta:`${LANG==='fr'?'Analogie':'Analogy'} ${idx+1}/${pool.length}`,prompt,options:q.opts,correct:q.c_idx,onDone:(ok)=>next(ok)});
+  }
+  show();
+}
+
+// ═══════════════════════════════════════════════
+// GAME 8 — NUMBER SEQUENCE
+// ═══════════════════════════════════════════════
+function playNumberSequence(){
+  const SEQS=[
+    {seq:[2,4,8,16,32],next:64,rule_en:'×2 each step',rule_fr:'×2 à chaque étape'},
+    {seq:[1,4,9,16,25],next:36,rule_en:'Perfect squares: n²',rule_fr:'Carrés parfaits : n²'},
+    {seq:[3,6,9,12,15],next:18,rule_en:'+3 each step',rule_fr:'+3 à chaque étape'},
+    {seq:[1,1,2,3,5],  next:8, rule_en:'Fibonacci: each = sum of two before',rule_fr:'Fibonacci : chaque = somme des deux précédents'},
+    {seq:[2,5,10,17,26],next:37,rule_en:'n²+1',rule_fr:'n²+1'},
+    {seq:[0,3,8,15,24], next:35,rule_en:'n²−1',rule_fr:'n²−1'},
+    {seq:[1,3,7,15,31], next:63,rule_en:'×2+1 each step',rule_fr:'×2+1 à chaque étape'},
+    {seq:[100,50,25,12,6],next:3,rule_en:'÷2 (rounded)',rule_fr:'÷2 (arrondi)'},
+  ];
+  const pool=shuffled(SEQS).slice(0,5);
+  let idx=0,correct=0;
+  function show(){
+    if(idx>=pool.length){finishCard('sequence',Math.round(correct/pool.length*100),'Number Sequence',correct,pool.length);return;}
+    const s=pool[idx];
+    const wrongs=new Set();
+    while(wrongs.size<3){const w=s.next+Math.floor(Math.random()*20)-10;if(w!==s.next&&w>=0)wrongs.add(w);}
+    const opts=[s.next,...wrongs].sort(()=>Math.random()-.5);
+    GA().innerHTML=`<div class="gc">
+      <div class="gc-meta">${LANG==='fr'?'Série':'Series'} ${idx+1}/${pool.length}</div>
+      <div class="seq-row">${s.seq.map(n=>`<span class="seq-num">${n}</span><span class="seq-arr">→</span>`).join('')}<span class="seq-q">?</span></div>
+      <div class="gc-opts">${opts.map(o=>`<button class="gc-opt" data-v="${o}" onclick="window.ns_pick(this,${o},${s.next})">${o}</button>`).join('')}</div>
+      <div id="gc-fb"></div>
+    </div>`;
+    window.ns_pick=function(btn,chosen,ans){
+      GA().querySelectorAll('.gc-opt').forEach(b=>{b.disabled=true;b.onclick=null;});
+      const ok=chosen===ans;if(ok)correct++;
+      btn.classList.add(ok?'gc-ok':'gc-err');
+      if(!ok) GA().querySelectorAll('.gc-opt').forEach(b=>{if(+b.dataset.v===ans)b.classList.add('gc-ok');});
+      const rule=LANG==='fr'?pool[idx-0].rule_fr:pool[idx-0].rule_en;
+      // Note: idx not yet incremented here
+      const rule2=LANG==='fr'?s.rule_fr:s.rule_en;
+      const fb=document.getElementById('gc-fb');
+      if(fb) fb.innerHTML=`<div class="gc-fb ${ok?'gc-fb-ok':'gc-fb-err'}">${ok?t('correct'):t('wrong')+' '+ans}</div>
+        <div style="color:var(--text3);font-size:.73rem;margin-top:4px;">${LANG==='fr'?'Règle :':'Rule:'} ${rule2}</div>
+        <button class="btn btn-primary btn-sm mt-8" onclick="window.ns_next()">${idx+1<pool.length?t('next'):t('score')}</button>`;
+      idx++;
+    };
+    window.ns_next=show;
+  }
+  show();
+}
+
+// ═══════════════════════════════════════════════
+// GAME 9 — RULE SHIFT
+// ═══════════════════════════════════════════════
+function playRuleShift(){
+  const SHAPES=['●','■','▲','◆'];
+  const COLORS=['#4af0d8','#a78bfa','#f0c060','#f87171'];
+  const RULES=[
+    {en:'Circle (●)',fr:'Cercle (●)',check:(si)=>si===0},
+    {en:'Square (■)',fr:'Carré (■)',check:(si)=>si===1},
+    {en:'Triangle (▲)',fr:'Triangle (▲)',check:(si)=>si===2},
+    {en:'Cyan color',fr:'Couleur cyan',check:(si,ci)=>ci===0},
+    {en:'Violet color',fr:'Couleur violet',check:(si,ci)=>ci===1},
+    {en:'Yellow color',fr:'Couleur jaune',check:(si,ci)=>ci===2},
+  ];
+  const DUR=25;
+  let hits=0,total=0,ruleIdx=0,currentSI=0,currentCI=0;
+
+  function showItem(){
+    currentSI=Math.floor(Math.random()*SHAPES.length);
+    currentCI=Math.floor(Math.random()*COLORS.length);
+    const rule=RULES[ruleIdx];
+    if(Math.random()<.28) ruleIdx=Math.floor(Math.random()*RULES.length);
+    GA().innerHTML=`<div class="gc">
+      <div style="color:var(--cyan);font-size:.8rem;font-weight:600;text-align:center;margin-bottom:8px;">${LANG==='fr'?'Règle :':'Rule:'} <strong>${LANG==='fr'?rule.fr:rule.en}</strong></div>
+      <div class="rshift-sym" style="color:${COLORS[currentCI]}">${SHAPES[currentSI]}</div>
+      <div style="color:var(--text2);font-size:.84rem;text-align:center;margin:10px 0;">${LANG==='fr'?'Correspond à la règle ?':'Matches the rule?'}</div>
+      <div style="display:flex;gap:14px;justify-content:center;">
+        <button class="btn btn-primary" onclick="window.rs_ans(true)">✓ ${LANG==='fr'?'Oui':'Yes'}</button>
+        <button class="btn btn-danger" onclick="window.rs_ans(false)">✗ ${LANG==='fr'?'Non':'No'}</button>
+      </div>
+      <div style="color:var(--text3);font-size:.76rem;text-align:center;margin-top:12px;">${LANG==='fr'?'Score :':'Score:'} ${hits}/${total}</div>
+    </div>`;
+    window.rs_ans=function(userYes){
+      total++;
+      const matches=RULES[ruleIdx].check(currentSI,currentCI);
+      if(userYes===matches)hits++;
+      showItem();
+    };
+  }
+
+  GA().innerHTML=`<div class="gc" style="text-align:center;">
+    <div class="gc-prompt">${LANG==='fr'?'La règle peut changer à tout moment. Restez alerte !':'The rule can change at any moment. Stay sharp!'}</div>
+    <button class="btn btn-primary" onclick="window.rs_start()">${t('start_game')}</button>
+  </div>`;
+  window.rs_start=function(){
+    startCountdown(DUR,()=>{
+      stopTimer();
+      const score=total>0?Math.max(0,Math.min(100,Math.round(hits/total*100))):0;
+      finishCard('flex',score,'Rule Shift',hits,total);
+    });
+    showItem();
+  };
+}
+
+// ═══════════════════════════════════════════════
+// EXTRA CSS
+// ═══════════════════════════════════════════════
+(function injectCSS(){
+  const s=document.createElement('style');
+  s.textContent=`
+.gc{max-width:500px;margin:16px auto;background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:24px 20px;display:flex;flex-direction:column;gap:12px;}
+.gc-meta{color:var(--text3);font-size:.74rem;text-align:center;letter-spacing:.05em;}
+.gc-prompt{color:var(--text);font-size:.92rem;line-height:1.55;}
+.gc-opts{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+.gc-opt{background:var(--card2);border:1.5px solid var(--border);color:var(--text);border-radius:var(--r);padding:12px 10px;font-family:'Sora',sans-serif;font-size:.85rem;cursor:pointer;transition:all .2s;text-align:left;line-height:1.4;}
+.gc-opt:hover:not(:disabled){border-color:var(--cyan);background:var(--bg3);}
+.gc-ok{border-color:#4ade80!important;background:rgba(74,222,128,.1)!important;color:#4ade80!important;}
+.gc-err{border-color:#f87171!important;background:rgba(248,113,113,.1)!important;color:#f87171!important;}
+.gc-fb{padding:6px;font-size:.84rem;text-align:center;font-weight:600;}
+.gc-fb-ok{color:#4ade80;}.gc-fb-err{color:#f87171;}
+.gc-score{font-family:'DM Serif Display',serif;font-size:4rem;text-align:center;line-height:1;}
+.gc-label{color:var(--text2);text-align:center;font-size:.92rem;}
+.gc-btns{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;}
+.mt-8{margin-top:8px;}
+.premise-box{background:var(--bg3);border-left:3px solid var(--violet);border-radius:var(--r);padding:14px 16px;font-size:.9rem;line-height:1.6;display:flex;flex-direction:column;gap:8px;}
+.sprint-sym{font-size:5rem;text-align:center;line-height:1.4;cursor:pointer;user-select:none;transition:transform .1s;}
+.sprint-sym:active{transform:scale(.88);}
+.mem-row{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;}
+.mem-item{font-size:1.9rem;}
+.mem-key{font-size:1.5rem;background:var(--card2);border:1.5px solid var(--border);border-radius:var(--r);padding:6px 10px;cursor:pointer;transition:all .2s;}
+.mem-key:hover{border-color:var(--cyan);}
+.iceberg-obs{background:var(--bg3);border-left:3px solid var(--violet);border-radius:var(--r);padding:14px;display:flex;align-items:flex-start;gap:10px;font-size:.88rem;line-height:1.55;}
+.analogy-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:7px;background:var(--bg3);border-radius:var(--r);padding:14px;}
+.analogy-word{font-weight:700;font-size:1.05rem;color:var(--cyan);}
+.analogy-arr{color:var(--text3);}
+.analogy-sep{color:var(--text3);font-size:.8rem;}
+.seq-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:5px;background:var(--bg3);border-radius:var(--r);padding:14px;}
+.seq-num{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:7px 11px;font-size:1rem;font-weight:700;color:var(--cyan);}
+.seq-arr{color:var(--text3);font-size:.85rem;}
+.seq-q{background:rgba(240,192,96,.12);border:2px solid var(--gold);border-radius:8px;padding:7px 11px;font-size:1.1rem;font-weight:700;color:var(--gold);}
+.rshift-sym{font-size:5rem;text-align:center;line-height:1.4;}
+.rr-sel{display:flex;flex-wrap:wrap;gap:6px;min-height:34px;}
+.rr-chip{background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:4px 11px;font-size:.78rem;color:var(--text2);}
+.rr-opt{background:var(--card2);border:1.5px solid var(--border);color:var(--text);border-radius:var(--r);padding:12px 14px;font-family:'Sora',sans-serif;font-size:.85rem;cursor:pointer;transition:all .2s;text-align:left;width:100%;}
+.rr-opt:hover:not(:disabled){border-color:var(--cyan);}
+.apt-gloss-item{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px 18px;margin-bottom:10px;}
+.apt-gloss-name{font-weight:600;font-size:.88rem;margin-bottom:3px;}
+.apt-gloss-desc{font-size:.8rem;color:var(--text2);line-height:1.6;}
+.apt-bar-row{display:grid;grid-template-columns:140px 1fr 44px;align-items:center;gap:10px;margin-bottom:10px;}
+.apt-bar-label{font-size:.78rem;color:var(--text2);}
+.apt-bar-track{background:var(--bg3);border-radius:40px;height:7px;overflow:hidden;}
+.apt-bar-fill{height:100%;border-radius:40px;transition:width .6s ease;}
+.apt-bar-score{font-size:.8rem;font-weight:600;text-align:right;}
+.history-item{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--border);font-size:.84rem;}
+.btn-danger{background:rgba(248,113,113,.1);color:#f87171;border:1px solid rgba(248,113,113,.25);border-radius:50px;padding:9px 17px;font-family:'Sora',sans-serif;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s;}
+.btn-danger:hover{background:rgba(248,113,113,.2);}
+@media(max-width:500px){.gc-opts{grid-template-columns:1fr;} .analogy-row{font-size:.9rem;} .apt-bar-row{grid-template-columns:100px 1fr 36px;}}
+`;
+  document.head.appendChild(s);
+})();
+
+// ═══════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════
+// Set data-lang on lang buttons
+const btnEn=document.getElementById('btn-en');
+const btnFr=document.getElementById('btn-fr');
+if(btnEn) btnEn.dataset.lang='en';
+if(btnFr) btnFr.dataset.lang='fr';
+
+applyI18n();
+showPage('home');
+</script>
+</body>
+</html>
