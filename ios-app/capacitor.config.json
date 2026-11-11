@@ -1,0 +1,12 @@
+{
+  "appId": "com.axelfisch.cognisphere.dev",
+  "appName": "Cognisphere",
+  "webDir": "www",
+  "ios": {
+    "contentInset": "never",
+    "backgroundColor": "#0e1117",
+    "allowsLinkPreview": false,
+    "scrollEnabled": false,
+    "preferredContentMode": "mobile"
+  }
+}

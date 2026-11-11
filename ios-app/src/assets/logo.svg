@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="a" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#3ef0dc"/><stop offset=".55" stop-color="#7c8cf8"/><stop offset="1" stop-color="#b26bff"/></linearGradient>
+    <radialGradient id="b" cx=".35" cy=".7" r=".8"><stop offset="0" stop-color="#4af0d8"/><stop offset=".6" stop-color="#7a5cf0"/><stop offset="1" stop-color="#a855f7"/></radialGradient>
+    <radialGradient id="c" cx=".5" cy=".55" r=".75"><stop offset="0" stop-color="#0b1030"/><stop offset="1" stop-color="#04051a"/></radialGradient>
+  </defs>
+  <rect width="512" height="512" fill="url(#c)"/>
+  <polygon points="256,78 436,384 76,384" fill="none" stroke="url(#a)" stroke-width="18" stroke-linejoin="round"/>
+  <circle cx="256" cy="276" r="112" fill="none" stroke="url(#a)" stroke-width="4" opacity=".55"/>
+  <path d="M 311 229 A 72 72 0 1 0 311 323" fill="none" stroke="url(#a)" stroke-width="17" stroke-linecap="round"/>
+  <circle cx="256" cy="276" r="40" fill="url(#b)"/>
+  <circle cx="256" cy="164" r="11" fill="#efe6ff"/><circle cx="159" cy="332" r="11" fill="#d9fffa"/><circle cx="353" cy="332" r="11" fill="#f0dcff"/>
+</svg>

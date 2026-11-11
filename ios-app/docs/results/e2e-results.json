@@ -1,0 +1,552 @@
+{
+  "generatedAt": "2026-11-11T06:35:26.930Z",
+  "engine": "Chromium 153.0.8010.12 (headless), not iOS WebKit",
+  "bundle": "www/ (release build)",
+  "summary": {
+    "passed": 44,
+    "failed": 0
+  },
+  "results": [
+    {
+      "name": "first launch offline: onboarding, no external request, FR from device locale",
+      "status": "passed",
+      "ms": 3855,
+      "detail": {
+        "requests": 23,
+        "external": 0
+      }
+    },
+    {
+      "name": "EN device locale starts in English; skip works",
+      "status": "passed",
+      "ms": 573
+    },
+    {
+      "name": "FR dark compact · logic_bridge: complete game, controlled score, single save, replay",
+      "status": "passed",
+      "ms": 5243,
+      "detail": {
+        "score": 100
+      }
+    },
+    {
+      "name": "FR dark compact · symbol_sprint: complete game, controlled score, single save, replay",
+      "status": "passed",
+      "ms": 35571,
+      "detail": {
+        "score": 100
+      }
+    },
+    {
+      "name": "FR dark compact · memory_stack: complete game, controlled score, single save, replay",
+      "status": "passed",
+      "ms": 7047,
+      "detail": {
+        "score": 100
+      }
+    },
+    {
+      "name": "FR dark compact · pattern_tri: complete game, controlled score, single save, replay",
+      "status": "passed",
+      "ms": 5892,
+      "detail": {
+        "score": 100
+      }
+    },
+    {
+      "name": "FR dark compact · reality_rank: complete game, controlled score, single save, replay",
+      "status": "passed",
+      "ms": 2744,
+      "detail": {
+        "score": 100
+      }
+    },
+    {
+      "name": "FR dark compact · iceberg: complete game, controlled score, single save, replay",
+      "status": "passed",
+      "ms": 5759,
+      "detail": {
+        "score": 100
+      }
+    },
+    {
+      "name": "FR dark compact · verbal_analogy: complete game, controlled score, single save, replay",
+      "status": "passed",
+      "ms": 5366,
+      "detail": {
+        "score": 100
+      }
+    },
+    {
+      "name": "FR dark compact · num_sequence: complete game, controlled score, single save, replay",
+      "status": "passed",
+      "ms": 5367,
+      "detail": {
+        "score": 100
+      }
+    },
+    {
+      "name": "FR dark compact · rule_shift: complete game, controlled score, single save, replay",
+      "status": "passed",
+      "ms": 11602,
+      "detail": {
+        "score": 100
+      }
+    },
+    {
+      "name": "FR result buttons: Games and Profile work after a game (Reality Rank path)",
+      "status": "passed",
+      "ms": 3685
+    },
+    {
+      "name": "FR profile: all nine played, zero is shown as 0, history and coverage",
+      "status": "passed",
+      "ms": 557
+    },
+    {
+      "name": "FR exports: real JSON and PDF files with localised content",
+      "status": "passed",
+      "ms": 584,
+      "detail": {
+        "json": "fr-cognisphere-resultats-sample.json",
+        "pdf": "fr-cognisphere-resultats-sample.pdf"
+      }
+    },
+    {
+      "name": "FR persistence after relaunch: scores, language, theme",
+      "status": "passed",
+      "ms": 120
+    },
+    {
+      "name": "FR erase: Cancel keeps everything, Erase empties scores, chart and history",
+      "status": "passed",
+      "ms": 1097
+    },
+    {
+      "name": "FR console clean and zero external request during the whole run",
+      "status": "passed",
+      "ms": 1,
+      "detail": {
+        "requests": 133
+      }
+    },
+    {
+      "name": "EN light large · logic_bridge: complete game, controlled score, single save, replay",
+      "status": "passed",
+      "ms": 4782,
+      "detail": {
+        "score": 80
+      }
+    },
+    {
+      "name": "EN light large · symbol_sprint: complete game, controlled score, single save, replay",
+      "status": "passed",
+      "ms": 35616,
+      "detail": {
+        "score": 83
+      }
+    },
+    {
+      "name": "EN light large · memory_stack: complete game, controlled score, single save, replay",
+      "status": "passed",
+      "ms": 7399,
+      "detail": {
+        "score": 67
+      }
+    },
+    {
+      "name": "EN light large · pattern_tri: complete game, controlled score, single save, replay",
+      "status": "passed",
+      "ms": 4870,
+      "detail": {
+        "score": 60
+      }
+    },
+    {
+      "name": "EN light large · reality_rank: complete game, controlled score, single save, replay",
+      "status": "passed",
+      "ms": 2498,
+      "detail": {
+        "score": 83
+      }
+    },
+    {
+      "name": "EN light large · iceberg: complete game, controlled score, single save, replay",
+      "status": "passed",
+      "ms": 3265,
+      "detail": {
+        "score": 67
+      }
+    },
+    {
+      "name": "EN light large · verbal_analogy: complete game, controlled score, single save, replay",
+      "status": "passed",
+      "ms": 5234,
+      "detail": {
+        "score": 40
+      }
+    },
+    {
+      "name": "EN light large · num_sequence: complete game, controlled score, single save, replay",
+      "status": "passed",
+      "ms": 6781,
+      "detail": {
+        "score": 0
+      }
+    },
+    {
+      "name": "EN light large · rule_shift: complete game, controlled score, single save, replay",
+      "status": "passed",
+      "ms": 9639,
+      "detail": {
+        "score": 63
+      }
+    },
+    {
+      "name": "EN result buttons: Games and Profile work after a game (Reality Rank path)",
+      "status": "passed",
+      "ms": 4419
+    },
+    {
+      "name": "EN profile: all nine played, zero is shown as 0, history and coverage",
+      "status": "passed",
+      "ms": 572
+    },
+    {
+      "name": "EN exports: real JSON and PDF files with localised content",
+      "status": "passed",
+      "ms": 733,
+      "detail": {
+        "json": "en-cognisphere-results-sample.json",
+        "pdf": "en-cognisphere-results-sample.pdf"
+      }
+    },
+    {
+      "name": "EN persistence after relaunch: scores, language, theme",
+      "status": "passed",
+      "ms": 103
+    },
+    {
+      "name": "EN erase: Cancel keeps everything, Erase empties scores, chart and history",
+      "status": "passed",
+      "ms": 2823
+    },
+    {
+      "name": "EN console clean and zero external request during the whole run",
+      "status": "passed",
+      "ms": 0,
+      "detail": {
+        "requests": 133
+      }
+    },
+    {
+      "name": "Symbol Sprint: no response scores 0 with 12 missed targets; a single hit scores 8",
+      "status": "passed",
+      "ms": 67902
+    },
+    {
+      "name": "abandon with a pending delay, then fast A→B: Memory Stack timer cannot touch Rule Shift, zero write",
+      "status": "passed",
+      "ms": 8995
+    },
+    {
+      "name": "background/foreground: timed game pauses, hidden time does not count, resume is explicit; quit from pause saves nothing",
+      "status": "passed",
+      "ms": 24117,
+      "detail": {
+        "remainingExposureMs": 4299
+      }
+    },
+    {
+      "name": "process killed mid-game: relaunch is coherent, finished games stay, the interrupted one is not saved",
+      "status": "passed",
+      "ms": 9250
+    },
+    {
+      "name": "invalid storage at launch: corrupt JSON and malformed entries do not crash, valid entries are kept",
+      "status": "passed",
+      "ms": 334
+    },
+    {
+      "name": "schema update: a web V2 save (cognisphere_v2 + cog_lang) is migrated without deleting the old key",
+      "status": "passed",
+      "ms": 675
+    },
+    {
+      "name": "storage blocked (writes throw): the game still completes and the result screen reports the failed save",
+      "status": "passed",
+      "ms": 9235
+    },
+    {
+      "name": "settings: language, theme and haptics switch live and persist; guide and policy reachable; long history capped at 60",
+      "status": "passed",
+      "ms": 3943,
+      "detail": {
+        "pdfPages": 2
+      }
+    },
+    {
+      "name": "layout: large text, both sizes and themes — no horizontal overflow, targets at least 44×44",
+      "status": "passed",
+      "ms": 66339,
+      "detail": {
+        "screensAudited": 42
+      }
+    },
+    {
+      "name": "reduced motion: the app runs, a game completes and animations are neutralised",
+      "status": "passed",
+      "ms": 923
+    },
+    {
+      "name": "accessibility structure: one h1 per screen, labelled controls, live regions, lang attribute",
+      "status": "passed",
+      "ms": 24772
+    },
+    {
+      "name": "native bridge (simulated iOS runtime): Preferences storage, haptics, file written → shared → deleted, cancel is a normal exit",
+      "status": "passed",
+      "ms": 13711
+    }
+  ],
+  "matrix": [
+    {
+      "game": "logic_bridge",
+      "lang": "fr",
+      "device": "compact",
+      "theme": "dark",
+      "plan": {},
+      "expected": 100,
+      "shown": 100,
+      "saved": 100,
+      "newSessions": 1,
+      "afterReplay": "fresh session, quit → 0 write"
+    },
+    {
+      "game": "symbol_sprint",
+      "lang": "fr",
+      "device": "compact",
+      "theme": "dark",
+      "plan": {
+        "mode": "perfect"
+      },
+      "expected": 100,
+      "shown": 100,
+      "saved": 100,
+      "newSessions": 1,
+      "afterReplay": "fresh session, quit → 0 write"
+    },
+    {
+      "game": "memory_stack",
+      "lang": "fr",
+      "device": "compact",
+      "theme": "dark",
+      "plan": {},
+      "expected": 100,
+      "shown": 100,
+      "saved": 100,
+      "newSessions": 1,
+      "afterReplay": "fresh session, quit → 0 write"
+    },
+    {
+      "game": "pattern_tri",
+      "lang": "fr",
+      "device": "compact",
+      "theme": "dark",
+      "plan": {},
+      "expected": 100,
+      "shown": 100,
+      "saved": 100,
+      "newSessions": 1,
+      "afterReplay": "fresh session, quit → 0 write"
+    },
+    {
+      "game": "reality_rank",
+      "lang": "fr",
+      "device": "compact",
+      "theme": "dark",
+      "plan": {
+        "order": "exact"
+      },
+      "expected": 100,
+      "shown": 100,
+      "saved": 100,
+      "newSessions": 1,
+      "afterReplay": "fresh session, quit → 0 write"
+    },
+    {
+      "game": "iceberg",
+      "lang": "fr",
+      "device": "compact",
+      "theme": "dark",
+      "plan": {},
+      "expected": 100,
+      "shown": 100,
+      "saved": 100,
+      "newSessions": 1,
+      "afterReplay": "fresh session, quit → 0 write"
+    },
+    {
+      "game": "verbal_analogy",
+      "lang": "fr",
+      "device": "compact",
+      "theme": "dark",
+      "plan": {},
+      "expected": 100,
+      "shown": 100,
+      "saved": 100,
+      "newSessions": 1,
+      "afterReplay": "fresh session, quit → 0 write"
+    },
+    {
+      "game": "num_sequence",
+      "lang": "fr",
+      "device": "compact",
+      "theme": "dark",
+      "plan": {},
+      "expected": 100,
+      "shown": 100,
+      "saved": 100,
+      "newSessions": 1,
+      "afterReplay": "fresh session, quit → 0 write"
+    },
+    {
+      "game": "rule_shift",
+      "lang": "fr",
+      "device": "compact",
+      "theme": "dark",
+      "plan": {},
+      "expected": 100,
+      "shown": 100,
+      "saved": 100,
+      "newSessions": 1,
+      "afterReplay": "fresh session, quit → 0 write"
+    },
+    {
+      "game": "logic_bridge",
+      "lang": "en",
+      "device": "large",
+      "theme": "light",
+      "plan": {
+        "wrong": 1
+      },
+      "expected": 80,
+      "shown": 80,
+      "saved": 80,
+      "newSessions": 1,
+      "afterReplay": "fresh session, quit → 0 write"
+    },
+    {
+      "game": "symbol_sprint",
+      "lang": "en",
+      "device": "large",
+      "theme": "light",
+      "plan": {
+        "mode": "mixed"
+      },
+      "expected": 83,
+      "shown": 83,
+      "saved": 83,
+      "newSessions": 1,
+      "afterReplay": "fresh session, quit → 0 write"
+    },
+    {
+      "game": "memory_stack",
+      "lang": "en",
+      "device": "large",
+      "theme": "light",
+      "plan": {
+        "wrong": 2
+      },
+      "expected": 67,
+      "shown": 67,
+      "saved": 67,
+      "newSessions": 1,
+      "afterReplay": "fresh session, quit → 0 write"
+    },
+    {
+      "game": "pattern_tri",
+      "lang": "en",
+      "device": "large",
+      "theme": "light",
+      "plan": {
+        "wrong": 2
+      },
+      "expected": 60,
+      "shown": 60,
+      "saved": 60,
+      "newSessions": 1,
+      "afterReplay": "fresh session, quit → 0 write"
+    },
+    {
+      "game": "reality_rank",
+      "lang": "en",
+      "device": "large",
+      "theme": "light",
+      "plan": {
+        "order": "swap"
+      },
+      "expected": 83,
+      "shown": 83,
+      "saved": 83,
+      "newSessions": 1,
+      "afterReplay": "fresh session, quit → 0 write"
+    },
+    {
+      "game": "iceberg",
+      "lang": "en",
+      "device": "large",
+      "theme": "light",
+      "plan": {
+        "wrong": 1
+      },
+      "expected": 67,
+      "shown": 67,
+      "saved": 67,
+      "newSessions": 1,
+      "afterReplay": "fresh session, quit → 0 write"
+    },
+    {
+      "game": "verbal_analogy",
+      "lang": "en",
+      "device": "large",
+      "theme": "light",
+      "plan": {
+        "wrong": 3
+      },
+      "expected": 40,
+      "shown": 40,
+      "saved": 40,
+      "newSessions": 1,
+      "afterReplay": "fresh session, quit → 0 write"
+    },
+    {
+      "game": "num_sequence",
+      "lang": "en",
+      "device": "large",
+      "theme": "light",
+      "plan": {
+        "wrong": 5
+      },
+      "expected": 0,
+      "shown": 0,
+      "saved": 0,
+      "newSessions": 1,
+      "afterReplay": "fresh session, quit → 0 write"
+    },
+    {
+      "game": "rule_shift",
+      "lang": "en",
+      "device": "large",
+      "theme": "light",
+      "plan": {
+        "wrong": 3
+      },
+      "expected": 63,
+      "shown": 63,
+      "saved": 63,
+      "newSessions": 1,
+      "afterReplay": "fresh session, quit → 0 write"
+    }
+  ]
+}

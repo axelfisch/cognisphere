@@ -1,0 +1,247 @@
+{
+  "app": "Cognisphere",
+  "platform": "ios",
+  "appVersion": "1.0.0",
+  "exportVersion": 1,
+  "schema": 3,
+  "scoringVersion": 2,
+  "exportedAt": "2026-11-11T06:31:33.622Z",
+  "language": "en",
+  "note": "Cognisphere is a game. These scores describe performance in its exercises on this device. They are not a test result or a diagnosis.",
+  "scoring": {
+    "domainScore": "first result, then round(0.6 × previous + 0.4 × new)",
+    "average": "mean of played domains",
+    "historyLimit": 60
+  },
+  "summary": {
+    "domainsPlayed": 9,
+    "domainsTotal": 9,
+    "average": 59,
+    "sessionsPlayed": 11,
+    "sessionsInHistory": 11
+  },
+  "domains": [
+    {
+      "id": "reasoning",
+      "label": "Logical reasoning",
+      "game": "logic_bridge",
+      "gameLabel": "Logic Bridge",
+      "played": true,
+      "score": 80,
+      "sessions": 1,
+      "best": 80,
+      "lastPlayedAt": "2026-11-11T06:30:11.458Z"
+    },
+    {
+      "id": "speed",
+      "label": "Processing speed",
+      "game": "symbol_sprint",
+      "gameLabel": "Symbol Sprint",
+      "played": true,
+      "score": 83,
+      "sessions": 1,
+      "best": 83,
+      "lastPlayedAt": "2026-11-11T06:30:46.909Z"
+    },
+    {
+      "id": "memory",
+      "label": "Working memory",
+      "game": "memory_stack",
+      "gameLabel": "Memory Stack",
+      "played": true,
+      "score": 67,
+      "sessions": 1,
+      "best": 67,
+      "lastPlayedAt": "2026-11-11T06:30:54.460Z"
+    },
+    {
+      "id": "pattern",
+      "label": "Pattern finding",
+      "game": "pattern_tri",
+      "gameLabel": "Pattern Triangles",
+      "played": true,
+      "score": 60,
+      "sessions": 1,
+      "best": 60,
+      "lastPlayedAt": "2026-11-11T06:30:59.708Z"
+    },
+    {
+      "id": "reality",
+      "label": "Plausibility",
+      "game": "reality_rank",
+      "gameLabel": "Reality Rank",
+      "played": true,
+      "score": 70,
+      "sessions": 3,
+      "best": 100,
+      "lastPlayedAt": "2026-11-11T06:31:32.365Z"
+    },
+    {
+      "id": "epistemic",
+      "label": "Cautious inference",
+      "game": "iceberg",
+      "gameLabel": "Iceberg Inference",
+      "played": true,
+      "score": 67,
+      "sessions": 1,
+      "best": 67,
+      "lastPlayedAt": "2026-11-11T06:31:05.115Z"
+    },
+    {
+      "id": "analogy",
+      "label": "Verbal analogies",
+      "game": "verbal_analogy",
+      "gameLabel": "Verbal Analogy",
+      "played": true,
+      "score": 40,
+      "sessions": 1,
+      "best": 40,
+      "lastPlayedAt": "2026-11-11T06:31:10.413Z"
+    },
+    {
+      "id": "sequence",
+      "label": "Number sequences",
+      "game": "num_sequence",
+      "gameLabel": "Number Sequence",
+      "played": true,
+      "score": 0,
+      "sessions": 1,
+      "best": 0,
+      "lastPlayedAt": "2026-11-11T06:31:17.060Z"
+    },
+    {
+      "id": "flex",
+      "label": "Mental flexibility",
+      "game": "rule_shift",
+      "gameLabel": "Rule Shift",
+      "played": true,
+      "score": 63,
+      "sessions": 1,
+      "best": 63,
+      "lastPlayedAt": "2026-11-11T06:31:26.685Z"
+    }
+  ],
+  "sessions": [
+    {
+      "id": "smwbqqrb0-2-8i7tg",
+      "game": "reality_rank",
+      "gameLabel": "Reality Rank",
+      "domain": "reality",
+      "score": 100,
+      "correct": 6,
+      "total": 6,
+      "playedAt": "2026-11-11T06:31:32.365Z",
+      "scoringVersion": 2
+    },
+    {
+      "id": "smwbqqp1k-1-5bnqj",
+      "game": "reality_rank",
+      "gameLabel": "Reality Rank",
+      "domain": "reality",
+      "score": 0,
+      "correct": 0,
+      "total": 6,
+      "playedAt": "2026-11-11T06:31:29.605Z",
+      "scoringVersion": 2
+    },
+    {
+      "id": "smwbqqhkn-1-2rdmv",
+      "game": "rule_shift",
+      "gameLabel": "Rule Shift",
+      "domain": "flex",
+      "score": 63,
+      "correct": 5,
+      "total": 8,
+      "playedAt": "2026-11-11T06:31:26.685Z",
+      "scoringVersion": 2
+    },
+    {
+      "id": "smwbqqdbn-1-6kod4",
+      "game": "num_sequence",
+      "gameLabel": "Number Sequence",
+      "domain": "sequence",
+      "score": 0,
+      "correct": 0,
+      "total": 5,
+      "playedAt": "2026-11-11T06:31:17.060Z",
+      "scoringVersion": 2
+    },
+    {
+      "id": "smwbqq89y-1-9fazf",
+      "game": "verbal_analogy",
+      "gameLabel": "Verbal Analogy",
+      "domain": "analogy",
+      "score": 40,
+      "correct": 2,
+      "total": 5,
+      "playedAt": "2026-11-11T06:31:10.413Z",
+      "scoringVersion": 2
+    },
+    {
+      "id": "smwbqq5s2-1-85m4q",
+      "game": "iceberg",
+      "gameLabel": "Iceberg Inference",
+      "domain": "epistemic",
+      "score": 67,
+      "correct": 2,
+      "total": 3,
+      "playedAt": "2026-11-11T06:31:05.115Z",
+      "scoringVersion": 2
+    },
+    {
+      "id": "smwbqq3vb-1-5nyxn",
+      "game": "reality_rank",
+      "gameLabel": "Reality Rank",
+      "domain": "reality",
+      "score": 83,
+      "correct": 5,
+      "total": 6,
+      "playedAt": "2026-11-11T06:31:02.162Z",
+      "scoringVersion": 2
+    },
+    {
+      "id": "smwbqq02f-1-6glug",
+      "game": "pattern_tri",
+      "gameLabel": "Pattern Triangles",
+      "domain": "pattern",
+      "score": 60,
+      "correct": 3,
+      "total": 5,
+      "playedAt": "2026-11-11T06:30:59.708Z",
+      "scoringVersion": 2
+    },
+    {
+      "id": "smwbqpuew-1-7nem5",
+      "game": "memory_stack",
+      "gameLabel": "Memory Stack",
+      "domain": "memory",
+      "score": 67,
+      "correct": 4,
+      "total": 6,
+      "playedAt": "2026-11-11T06:30:54.460Z",
+      "scoringVersion": 2
+    },
+    {
+      "id": "smwbqp2vr-1-4vg2n",
+      "game": "symbol_sprint",
+      "gameLabel": "Symbol Sprint",
+      "domain": "speed",
+      "score": 83,
+      "correct": 12,
+      "total": 12,
+      "playedAt": "2026-11-11T06:30:46.909Z",
+      "scoringVersion": 2
+    },
+    {
+      "id": "smwbqoz4r-1-9ttmm",
+      "game": "logic_bridge",
+      "gameLabel": "Logic Bridge",
+      "domain": "reasoning",
+      "score": 80,
+      "correct": 4,
+      "total": 5,
+      "playedAt": "2026-11-11T06:30:11.458Z",
+      "scoringVersion": 2
+    }
+  ]
+}

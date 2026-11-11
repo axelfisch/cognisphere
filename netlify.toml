@@ -8,3 +8,10 @@
     X-XSS-Protection = "1; mode=block"
     Content-Security-Policy = "default-src 'self' https: 'unsafe-inline' 'unsafe-eval'; img-src 'self' data:;"
     Cache-Control = "no-cache"
+
+# The iOS project lives in ios-app/ and must not be served with the static site (publish = ".").
+[[redirects]]
+  from = "/ios-app/*"
+  to = "/index.html"
+  status = 404
+  force = true

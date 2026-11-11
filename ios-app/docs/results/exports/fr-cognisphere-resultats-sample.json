@@ -1,0 +1,247 @@
+{
+  "app": "Cognisphere",
+  "platform": "ios",
+  "appVersion": "1.0.0",
+  "exportVersion": 1,
+  "schema": 3,
+  "scoringVersion": 2,
+  "exportedAt": "2026-11-11T06:30:06.109Z",
+  "language": "fr",
+  "note": "Cognisphere est un jeu. Ces scores décrivent des performances dans ses exercices, sur cet appareil. Ce ne sont ni des résultats de test ni un diagnostic.",
+  "scoring": {
+    "domainScore": "first result, then round(0.6 × previous + 0.4 × new)",
+    "average": "mean of played domains",
+    "historyLimit": 60
+  },
+  "summary": {
+    "domainsPlayed": 9,
+    "domainsTotal": 9,
+    "average": 97,
+    "sessionsPlayed": 11,
+    "sessionsInHistory": 11
+  },
+  "domains": [
+    {
+      "id": "reasoning",
+      "label": "Raisonnement logique",
+      "game": "logic_bridge",
+      "gameLabel": "Pont logique",
+      "played": true,
+      "score": 100,
+      "sessions": 1,
+      "best": 100,
+      "lastPlayedAt": "2026-11-11T06:28:41.074Z"
+    },
+    {
+      "id": "speed",
+      "label": "Vitesse de traitement",
+      "game": "symbol_sprint",
+      "gameLabel": "Sprint de symboles",
+      "played": true,
+      "score": 100,
+      "sessions": 1,
+      "best": 100,
+      "lastPlayedAt": "2026-11-11T06:29:16.708Z"
+    },
+    {
+      "id": "memory",
+      "label": "Mémoire de travail",
+      "game": "memory_stack",
+      "gameLabel": "Pile mémorielle",
+      "played": true,
+      "score": 100,
+      "sessions": 1,
+      "best": 100,
+      "lastPlayedAt": "2026-11-11T06:29:24.110Z"
+    },
+    {
+      "id": "pattern",
+      "label": "Recherche de motifs",
+      "game": "pattern_tri",
+      "gameLabel": "Triangles-motifs",
+      "played": true,
+      "score": 100,
+      "sessions": 1,
+      "best": 100,
+      "lastPlayedAt": "2026-11-11T06:29:29.208Z"
+    },
+    {
+      "id": "reality",
+      "label": "Plausibilité",
+      "game": "reality_rank",
+      "gameLabel": "Classement réel",
+      "played": true,
+      "score": 76,
+      "sessions": 3,
+      "best": 100,
+      "lastPlayedAt": "2026-11-11T06:30:05.399Z"
+    },
+    {
+      "id": "epistemic",
+      "label": "Inférence prudente",
+      "game": "iceberg",
+      "gameLabel": "Inférence iceberg",
+      "played": true,
+      "score": 100,
+      "sessions": 1,
+      "best": 100,
+      "lastPlayedAt": "2026-11-11T06:29:38.122Z"
+    },
+    {
+      "id": "analogy",
+      "label": "Analogies verbales",
+      "game": "verbal_analogy",
+      "gameLabel": "Analogie verbale",
+      "played": true,
+      "score": 100,
+      "sessions": 1,
+      "best": 100,
+      "lastPlayedAt": "2026-11-11T06:29:43.489Z"
+    },
+    {
+      "id": "sequence",
+      "label": "Suites numériques",
+      "game": "num_sequence",
+      "gameLabel": "Séquence numérique",
+      "played": true,
+      "score": 100,
+      "sessions": 1,
+      "best": 100,
+      "lastPlayedAt": "2026-11-11T06:29:48.788Z"
+    },
+    {
+      "id": "flex",
+      "label": "Flexibilité mentale",
+      "game": "rule_shift",
+      "gameLabel": "Changement de règle",
+      "played": true,
+      "score": 100,
+      "sessions": 1,
+      "best": 100,
+      "lastPlayedAt": "2026-11-11T06:30:00.439Z"
+    }
+  ],
+  "sessions": [
+    {
+      "id": "smwbqowav-2-2lky4",
+      "game": "reality_rank",
+      "gameLabel": "Classement réel",
+      "domain": "reality",
+      "score": 100,
+      "correct": 6,
+      "total": 6,
+      "playedAt": "2026-11-11T06:30:05.399Z",
+      "scoringVersion": 2
+    },
+    {
+      "id": "smwbqoufj-1-9tbbo",
+      "game": "reality_rank",
+      "gameLabel": "Classement réel",
+      "domain": "reality",
+      "score": 0,
+      "correct": 0,
+      "total": 6,
+      "playedAt": "2026-11-11T06:30:03.322Z",
+      "scoringVersion": 2
+    },
+    {
+      "id": "smwbqommg-1-6dcr3",
+      "game": "rule_shift",
+      "gameLabel": "Changement de règle",
+      "domain": "flex",
+      "score": 100,
+      "correct": 8,
+      "total": 8,
+      "playedAt": "2026-11-11T06:30:00.439Z",
+      "scoringVersion": 2
+    },
+    {
+      "id": "smwbqohbp-1-2qkp2",
+      "game": "num_sequence",
+      "gameLabel": "Séquence numérique",
+      "domain": "sequence",
+      "score": 100,
+      "correct": 5,
+      "total": 5,
+      "playedAt": "2026-11-11T06:29:48.788Z",
+      "scoringVersion": 2
+    },
+    {
+      "id": "smwbqod8i-1-3bu2v",
+      "game": "verbal_analogy",
+      "gameLabel": "Analogie verbale",
+      "domain": "analogy",
+      "score": 100,
+      "correct": 5,
+      "total": 5,
+      "playedAt": "2026-11-11T06:29:43.489Z",
+      "scoringVersion": 2
+    },
+    {
+      "id": "smwbqo9zc-1-1klhb",
+      "game": "iceberg",
+      "gameLabel": "Inférence iceberg",
+      "domain": "epistemic",
+      "score": 100,
+      "correct": 3,
+      "total": 3,
+      "playedAt": "2026-11-11T06:29:38.122Z",
+      "scoringVersion": 2
+    },
+    {
+      "id": "smwbqo6mu-1-6s4s2",
+      "game": "reality_rank",
+      "gameLabel": "Classement réel",
+      "domain": "reality",
+      "score": 100,
+      "correct": 6,
+      "total": 6,
+      "playedAt": "2026-11-11T06:29:32.312Z",
+      "scoringVersion": 2
+    },
+    {
+      "id": "smwbqo24b-1-2e5bd",
+      "game": "pattern_tri",
+      "gameLabel": "Triangles-motifs",
+      "domain": "pattern",
+      "score": 100,
+      "correct": 5,
+      "total": 5,
+      "playedAt": "2026-11-11T06:29:29.208Z",
+      "scoringVersion": 2
+    },
+    {
+      "id": "smwbqnwnz-1-1o1rp",
+      "game": "memory_stack",
+      "gameLabel": "Pile mémorielle",
+      "domain": "memory",
+      "score": 100,
+      "correct": 6,
+      "total": 6,
+      "playedAt": "2026-11-11T06:29:24.110Z",
+      "scoringVersion": 2
+    },
+    {
+      "id": "smwbqn599-1-68yyd",
+      "game": "symbol_sprint",
+      "gameLabel": "Sprint de symboles",
+      "domain": "speed",
+      "score": 100,
+      "correct": 12,
+      "total": 12,
+      "playedAt": "2026-11-11T06:29:16.708Z",
+      "scoringVersion": 2
+    },
+    {
+      "id": "smwbqn13l-1-5hmbu",
+      "game": "logic_bridge",
+      "gameLabel": "Pont logique",
+      "domain": "reasoning",
+      "score": 100,
+      "correct": 5,
+      "total": 5,
+      "playedAt": "2026-11-11T06:28:41.074Z",
+      "scoringVersion": 2
+    }
+  ]
+}
